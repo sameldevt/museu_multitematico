@@ -1,0 +1,6 @@
+
+SERVER INITIALIZED AT [2023-10-23 14:43:56]
+Client connected -  ART MODULE CONNECTED.
+Client connected -  ART MODULE CONNECTED.
+Client connected -  ENTRY MODULE CONNECTED.
+Client connected -  GATE MODULE CONNECTED.

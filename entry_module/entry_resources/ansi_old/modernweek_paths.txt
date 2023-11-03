@@ -1,0 +1,4 @@
+ansi\semana_da_arte\a_negra\anegra70.ans
+ansi\semana_da_arte\abaporu\abaporu70.ans
+ansi\semana_da_arte\estrada_de_ferro\estradadeferro70.ans
+ansi\semana_da_arte\operarios\operarios70.ans

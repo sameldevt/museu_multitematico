@@ -1,0 +1,6 @@
+﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(517,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
+  Main.c
+C:\ws-vs\museu_multitematico\entry_module\Main.c(33,17): warning C4047: '==': 'int' differs in levels of indirection from 'void *'
+C:\ws-vs\museu_multitematico\entry_module\Main.c(42,17): warning C4047: '==': 'int' differs in levels of indirection from 'void *'
+C:\ws-vs\museu_multitematico\entry_module\Main.c(50,19): warning C4047: '==': 'int' differs in levels of indirection from 'void *'
+  entry_module.vcxproj -> C:\ws-vs\museu_multitematico\entry_module\entry_module.exe

@@ -1,0 +1,25 @@
+﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(517,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
+  ReportGen.c
+C:\ws-vs\museu_multitematico\server_module\ReportGen.c(47,33): warning C4047: '==': 'int' differs in levels of indirection from 'void *'
+C:\ws-vs\museu_multitematico\server_module\ReportGen.c(165,9): warning C4133: '=': incompatible types - from 'char *' to 'int *'
+C:\ws-vs\museu_multitematico\server_module\ReportGen.c(169,10): warning C4133: '=': incompatible types - from 'char *' to 'int *'
+C:\ws-vs\museu_multitematico\server_module\ReportGen.c(172,28): warning C4133: 'function': incompatible types - from 'int *' to 'const char *'
+C:\ws-vs\museu_multitematico\server_module\ReportGen.c(173,29): warning C4133: 'function': incompatible types - from 'int *' to 'const char *'
+C:\ws-vs\museu_multitematico\server_module\ReportGen.c(174,29): warning C4133: 'function': incompatible types - from 'int *' to 'const char *'
+C:\ws-vs\museu_multitematico\server_module\ReportGen.c(206,2): warning C4047: 'return': 'ArtStats *' differs in levels of indirection from 'ArtStats *(__cdecl *)(int)'
+C:\ws-vs\museu_multitematico\server_module\ReportGen.c(211,16): warning C4101: 'tokens': unreferenced local variable
+C:\ws-vs\museu_multitematico\server_module\ReportGen.c(211,7): warning C4101: 'token': unreferenced local variable
+C:\ws-vs\museu_multitematico\server_module\ReportGen.c(252,70): warning C4047: 'function': 'PaymentStats *' differs in levels of indirection from 'PaymentStats **'
+C:\ws-vs\museu_multitematico\server_module\ReportGen.c(252,70): warning C4024: 'calculateMostPurchasedTicket': different types for formal and actual parameter 1
+C:\ws-vs\museu_multitematico\server_module\ReportGen.c(253,61): warning C4047: 'function': 'ArtStats *' differs in levels of indirection from 'ArtStats **'
+C:\ws-vs\museu_multitematico\server_module\ReportGen.c(253,61): warning C4024: 'calculateMostVisitedArt': different types for formal and actual parameter 1
+C:\ws-vs\museu_multitematico\server_module\ReportGen.c(254,63): warning C4047: 'function': 'GateStats *' differs in levels of indirection from 'GateStats **'
+C:\ws-vs\museu_multitematico\server_module\ReportGen.c(254,63): warning C4024: 'calculateMostVisitedTheme': different types for formal and actual parameter 1
+C:\ws-vs\museu_multitematico\server_module\ReportGen.c(277,69): warning C4047: 'function': 'PaymentStats *' differs in levels of indirection from 'PaymentStats **'
+C:\ws-vs\museu_multitematico\server_module\ReportGen.c(277,69): warning C4024: 'calculateMostPurchasedTicket': different types for formal and actual parameter 1
+C:\ws-vs\museu_multitematico\server_module\ReportGen.c(278,61): warning C4047: 'function': 'ArtStats *' differs in levels of indirection from 'ArtStats **'
+C:\ws-vs\museu_multitematico\server_module\ReportGen.c(278,61): warning C4024: 'calculateMostVisitedArt': different types for formal and actual parameter 1
+C:\ws-vs\museu_multitematico\server_module\ReportGen.c(279,63): warning C4047: 'function': 'GateStats *' differs in levels of indirection from 'GateStats **'
+C:\ws-vs\museu_multitematico\server_module\ReportGen.c(279,63): warning C4024: 'calculateMostVisitedTheme': different types for formal and actual parameter 1
+C:\ws-vs\museu_multitematico\server_module\ReportGen.c(293): warning C4716: 'printServerLog': must return a value
+  server_module.vcxproj -> C:\ws-vs\museu_multitematico\server_module\server_module.exe

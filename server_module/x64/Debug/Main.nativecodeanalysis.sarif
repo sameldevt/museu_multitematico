@@ -1,0 +1,91 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "runs": [
+    {
+      "results": [],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis",
+          "version": "14.37.32822.0",
+          "informationUri": "https://aka.ms/cpp/ca"
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///c:/ws-vs/museu_multitematico/server_module/main.c"
+          },
+          "roles": [
+            "analysisTarget"
+          ],
+          "hashes": {
+            "sha-256": "8ebb61a2f3c02cdcb03093b9cf05600c569ac1f19821e44142b7af0bc56aaaa6"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/ws-vs/museu_multitematico/libs/pthreads-w32/include/pthread.h"
+          },
+          "hashes": {
+            "sha-256": "35c5223d3fc37e06e41fe0f8af5f6a6fde9526f90ec4a5094710ced265f83368"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/ws-vs/museu_multitematico/libs/pthreads-w32/include/sched.h"
+          },
+          "hashes": {
+            "sha-256": "d4f7f16b8e1ad99ae80370bdd34adeb7c6c34e718ba283290b82417f47b97ac2"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/ws-vs/museu_multitematico/server_module/server.h"
+          },
+          "hashes": {
+            "sha-256": "5f446f32cf51ecf1befca87426fb77a6bed7c4bf71ff8bf9e5d374718a1cf6a3"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/ws-vs/museu_multitematico/server_module/artprocess.h"
+          },
+          "hashes": {
+            "sha-256": "4291236d2c514ab4acca06e1610476a1106d972e80e62ecf4d8833264df5a8c1"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/ws-vs/museu_multitematico/server_module/entryprocess.h"
+          },
+          "hashes": {
+            "sha-256": "db285fcea7fc39f435e8fc8f732510ee18bbef7d315487d167dc3968e6f34309"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/ws-vs/museu_multitematico/server_module/paymentprocess.h"
+          },
+          "hashes": {
+            "sha-256": "dc27f4f8fc1df0765520ffffd17e6556d438b942fb64272841da061386ce01a3"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/ws-vs/museu_multitematico/server_module/gateprocess.h"
+          },
+          "hashes": {
+            "sha-256": "36aba7b4fd21edc7320833e1efe26fcbfcac3bcc654e2c78f67d2a51b474fc62"
+          }
+        }
+      ]
+    }
+  ]
+}

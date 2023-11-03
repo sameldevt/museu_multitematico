@@ -1,0 +1,7 @@
+﻿  Main.c
+C:\ws-vs\museu_multidisciplinar\desc_module\Main.c(14,13): error C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\ws-vs\museu_multidisciplinar\desc_module\Main.c(30,13): error C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\ws-vs\museu_multidisciplinar\desc_module\Main.c(43,20): warning C4101: 'art': unreferenced local variable
+C:\ws-vs\museu_multidisciplinar\desc_module\Main.c(43,30): warning C4101: 'desc': unreferenced local variable
+  WinsockSetup.c
+  Generating Code...

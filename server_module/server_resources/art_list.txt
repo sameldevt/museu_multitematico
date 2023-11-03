@@ -1,0 +1,4 @@
+C:\ws-vs\museu_multidisciplinar\server_module\resources\santos_dumont_150\14bis\14_bis_v2.ans
+C:\ws-vs\museu_multidisciplinar\server_module\resources\santos_dumont_150\balao\balao.ans
+C:\ws-vs\museu_multidisciplinar\server_module\resources\santos_dumont_150\santos_dumont\santos_dumont_ansi.ans
+C:\ws-vs\museu_multidisciplinar\server_module\resources\santos_dumont_150\torre_eifel\torreeifel70.ans
