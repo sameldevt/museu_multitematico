@@ -6,9 +6,10 @@
 #include <SDL.h>
 
 int main(int argc, char* argv[]) {
-	int result;
+	int result, width = 0, height = 0;
 	char request[10], art[256], bnum[10];
 	SOCKET clientSocket = socketSetup();
+	SDL_Init(SDL_INIT_VIDEO);
 
 	while (1) {
 		result = connectSocket(clientSocket);
@@ -24,19 +25,33 @@ int main(int argc, char* argv[]) {
 	result = recv(clientSocket, bnum, sizeof(bnum), 0);
 
 	int inum = atoi(bnum);
+	switch (inum) {
+	case 0:
+	case 1:
+	case 2:
+	case 4:
+	case 6:
+	case 8:
+	case 9:
+	case 10:
+	case 11:
+		width = 600;
+		height = 720;
+		break;
+	default:
+		width = 800;
+		height = 520;
+		break;
+	}
 	char art_path[100];
 	for (int i = 0; i < 16; i++) {
 		if (inum == i) {
-			sprintf(art_path, "art_resources\\art%d.bmp", i);
+			sprintf(art_path, "..\\art_module\\art_resources\\art%d.bmp", i);
 			break;
 		}
 	}
 
-	SDL_Init(SDL_INIT_VIDEO);
-
-	SDL_Window* window = SDL_CreateWindow("", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 600, 800, SDL_WINDOW_SHOWN | SDL_WINDOW_BORDERLESS);
-
-	SDL_SetWindowPosition(window, 30, 40);
+	SDL_Window* window = SDL_CreateWindow("", 30, 40, width, height, SDL_WINDOW_BORDERLESS);
 
 	SDL_Surface* image = SDL_LoadBMP(art_path);
 
@@ -47,8 +62,8 @@ int main(int argc, char* argv[]) {
 	SDL_Rect destRect;
 	destRect.x = 0;
 	destRect.y = 0;
-	destRect.w = 600;
-	destRect.h = 800;
+	destRect.w = width;
+	destRect.h = height;
 
 	SDL_RenderClear(renderer);
 

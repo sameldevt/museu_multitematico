@@ -2,6 +2,4 @@
   art_module.cpp
 C:\ws-vs\museu_multitematico\art_module\art_module.cpp(10,7): warning C4101: 'request': unreferenced local variable
 C:\ws-vs\museu_multitematico\art_module\art_module.cpp(10,20): warning C4101: 'art': unreferenced local variable
-  WinsockSetup.cpp
-  Generating Code...
   art_module.vcxproj -> C:\ws-vs\museu_multitematico\art_module\art_module.exe

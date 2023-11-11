@@ -14,12 +14,17 @@
 
 #pragma comment(lib, "pthreadVC2.lib")
 
+/* 
+   A função abaixo tem como parâmetro um identificador para o console do Windows
+   e é responsável por ajustar o tamanho da mesma bem como reposicioná-la no lado 
+   esquerdo da tela.
+*/
 void setWindowSize(HANDLE console) {
 	if (console != INVALID_HANDLE_VALUE) {
 		// Define o tamanho do buffer de tela
 		COORD bufferSize;
-		bufferSize.X = 200; // 100 colunas
-		bufferSize.Y = 50;  // 50 linhas
+		bufferSize.X = 200;
+		bufferSize.Y = 50;
 
 		SetConsoleScreenBufferSize(console, bufferSize);
 
@@ -27,15 +32,14 @@ void setWindowSize(HANDLE console) {
 		SMALL_RECT windowSize;
 		windowSize.Left = 0;
 		windowSize.Top = 0;
-		windowSize.Right = 99;  // 100 colunas - 1
-		windowSize.Bottom = 49; // 50 linhas - 1
+		windowSize.Right = 99; 
+		windowSize.Bottom = 49; 
 
 		SetConsoleWindowInfo(console, TRUE, &windowSize);
 	}
 
 	Sleep(100);
 
-	// Obtém um identificador para o console atual
 	HWND consoleWindow = GetConsoleWindow();
 
 	if (consoleWindow != NULL) {
@@ -60,11 +64,16 @@ void setWindowSize(HANDLE console) {
 	Sleep(100);
 }
 
+/*
+	A função abaixo não possui valores como parâmetro e é responsável por gerenciar
+	threads criadas pelo programa.
+*/
 void* threadHandler() {
 	int result, thread_count = 0, art_count = 0, theme_count = 0;
 	char buffer[100], message[50], client[8], init_time[54];
 	pthread_t *client_threads[100];
 	time_t rawtime;
+	
 	struct tm* timeinfo;
 	struct ArtThreadStruct {
 		int num;
@@ -75,7 +84,7 @@ void* threadHandler() {
 		int num;
 		SOCKET clientSocket;
 	};
-	
+
 	time(&rawtime);
 	timeinfo = localtime(&rawtime);
 	sprintf(init_time, "\nSERVER INITIALIZED AT [%04d-%02d-%02d %02d:%02d:%02d]\n",
@@ -86,26 +95,24 @@ void* threadHandler() {
 	fprintf(fp, init_time);
 	fclose(fp);
 
+	// Configura e criar um Socket para o servidor.
 	SOCKET serverSocket = serverSetup();
+
+	// Loop para aceitar conexões de clientes no servidor.
 	while (1) {
-		if (listen(serverSocket, SOMAXCONN) == SOCKET_ERROR) {
-			logServer("Listen failed with error: %ld\n", WSAGetLastError());
-			closesocket(serverSocket);
-			WSACleanup();
-			continue;
-		}
 
+		// Aguarda a conexão de um cliente.
+		listen(serverSocket, SOMAXCONN);
+
+		// Aceita uma conexão do cliente e cria um Socket para o mesmo.
 		SOCKET clientSocket = accept(serverSocket, NULL, NULL);
-		if (clientSocket == INVALID_SOCKET) {
-			printf("accept failed: %d\n", WSAGetLastError());
-			closesocket(serverSocket);
-			WSACleanup();
-			continue;
-		}
 
+		// Recebe uma mensagem que representa o tipo de cliente conectado.
 		result = recv(clientSocket, client, 8, 0);
 		logServer("Client connected - ");
 
+		// Caso a mensagem recebida seja "client1", a função "pthread_create()" cria uma thread
+		// que é reponsável por gerenciar as funções do "terminal de entrada".
 		if (strcmp(client, "client1") == 0) {
 			logServer(" ENTRY MODULE CONNECTED.\n");
 			if (pthread_create(&client_threads[thread_count], NULL, terminalHandler, clientSocket) != 0) {
@@ -113,6 +120,9 @@ void* threadHandler() {
 				closesocket(clientSocket);
 			}
 		}
+
+		// Caso a mensagem recebida seja "client2", a função "pthread_create()" cria uma thread
+		// que é reponsável por gerenciar as funções do "terminal de arte". 
 		else if (strcmp(client, "client2") == 0) {
 			logServer(" ART MODULE CONNECTED.\n");
 
@@ -129,6 +139,8 @@ void* threadHandler() {
 				closesocket(clientSocket);
 			}
 		}
+		// Caso a mensagem recebida seja "client3", a função "pthread_create()" cria uma thread
+		// que é reponsável por gerenciar as funções do "terminal de catraca" 
 		else if (strcmp(client, "client3") == 0) {
 			logServer(" GATE MODULE CONNECTED.\n");
 
@@ -157,6 +169,7 @@ int main() {
 
 	setWindowSize(console);
 
+	// Loop que mantém o fluxo de menu funcionando.
 	while(1){
 		system("cls");
 		printf("SERVER MENU\n");

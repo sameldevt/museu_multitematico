@@ -7,8 +7,10 @@
 #include "EntryProcess.h"
 #include "Server.h"
 
-/* Arquivo com funções de verificação de entrada de usuários */
-
+/*
+ *	A função abaixo recebe como parâmetro um Socket 
+ * 
+ */
 int verifyUserEntry(SOCKET clientSocket) {
 	char name[100], * token, *tokens[2];
 	int iResult, count = 0;

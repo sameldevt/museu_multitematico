@@ -1,4 +1,36 @@
 ﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(517,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
+  ArtProcess.c
+C:\ws-vs\museu_multitematico\server_module\ArtProcess.c(46,14): warning C4047: '==': 'int' differs in levels of indirection from 'char [20]'
+C:\ws-vs\museu_multitematico\server_module\ArtProcess.c(51,39): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+  EntryProcess.c
+C:\ws-vs\museu_multitematico\server_module\EntryProcess.c(13,28): warning C4101: 'tokens': unreferenced local variable
+C:\ws-vs\museu_multitematico\server_module\EntryProcess.c(13,20): warning C4101: 'token': unreferenced local variable
+C:\ws-vs\museu_multitematico\server_module\EntryProcess.c(233,17): warning C4101: 'buffer': unreferenced local variable
+  EntryTerminalHandler.c
+C:\ws-vs\museu_multitematico\server_module\EntryTerminalHandler.c(11,9): warning C4047: 'initializing': 'SOCKET' differs in levels of indirection from 'SOCKET *'
+C:\ws-vs\museu_multitematico\server_module\EntryTerminalHandler.c(12,6): warning C4101: 'iResult': unreferenced local variable
+  EventLog.c
+  FileProcess.c
+C:\ws-vs\museu_multitematico\server_module\FileProcess.c(29,7): warning C4101: 'input_ref': unreferenced local variable
+  GateProcess.c
+  Main.c
+C:\ws-vs\museu_multitematico\server_module\Main.c(92,49): warning C4020: 'logServer': too many actual parameters
+C:\ws-vs\museu_multitematico\server_module\Main.c(111,23): warning C4047: 'function': 'pthread_t *' differs in levels of indirection from 'pthread_t **'
+C:\ws-vs\museu_multitematico\server_module\Main.c(111,23): warning C4024: 'pthread_create': different types for formal and actual parameter 1
+C:\ws-vs\museu_multitematico\server_module\Main.c(111,77): warning C4022: 'pthread_create': pointer mismatch for actual parameter 4
+C:\ws-vs\museu_multitematico\server_module\Main.c(127,23): warning C4047: 'function': 'pthread_t *' differs in levels of indirection from 'pthread_t **'
+C:\ws-vs\museu_multitematico\server_module\Main.c(127,23): warning C4024: 'pthread_create': different types for formal and actual parameter 1
+C:\ws-vs\museu_multitematico\server_module\Main.c(143,23): warning C4047: 'function': 'pthread_t *' differs in levels of indirection from 'pthread_t **'
+C:\ws-vs\museu_multitematico\server_module\Main.c(143,23): warning C4024: 'pthread_create': different types for formal and actual parameter 1
+C:\ws-vs\museu_multitematico\server_module\Main.c(65,20): warning C4101: 'message': unreferenced local variable
+C:\ws-vs\museu_multitematico\server_module\Main.c(65,7): warning C4101: 'buffer': unreferenced local variable
+C:\ws-vs\museu_multitematico\server_module\Main.c(153,39): warning C4113: 'void *(__cdecl *)()' differs in parameter lists from 'void *(__cdecl *)(void *)'
+C:\ws-vs\museu_multitematico\server_module\Main.c(167,16): warning C4047: '==': 'int' differs in levels of indirection from 'void *'
+  PaymentProcess.c
+C:\ws-vs\museu_multitematico\server_module\PaymentProcess.c(68,17): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\ws-vs\museu_multitematico\server_module\PaymentProcess.c(111,12): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\ws-vs\museu_multitematico\server_module\PaymentProcess.c(117,31): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\ws-vs\museu_multitematico\server_module\PaymentProcess.c(121,31): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
   ReportGen.c
 C:\ws-vs\museu_multitematico\server_module\ReportGen.c(47,33): warning C4047: '==': 'int' differs in levels of indirection from 'void *'
 C:\ws-vs\museu_multitematico\server_module\ReportGen.c(165,9): warning C4133: '=': incompatible types - from 'char *' to 'int *'
@@ -21,5 +53,9 @@ C:\ws-vs\museu_multitematico\server_module\ReportGen.c(278,61): warning C4047: '
 C:\ws-vs\museu_multitematico\server_module\ReportGen.c(278,61): warning C4024: 'calculateMostVisitedArt': different types for formal and actual parameter 1
 C:\ws-vs\museu_multitematico\server_module\ReportGen.c(279,63): warning C4047: 'function': 'GateStats *' differs in levels of indirection from 'GateStats **'
 C:\ws-vs\museu_multitematico\server_module\ReportGen.c(279,63): warning C4024: 'calculateMostVisitedTheme': different types for formal and actual parameter 1
+  Server.c
+  Generating Code...
 C:\ws-vs\museu_multitematico\server_module\ReportGen.c(293): warning C4716: 'printServerLog': must return a value
+C:\ws-vs\museu_multitematico\server_module\EventLog.c(9): warning C4716: 'logServer': must return a value
+C:\ws-vs\museu_multitematico\server_module\ArtProcess.c(77): warning C4716: 'artHandler': must return a value
   server_module.vcxproj -> C:\ws-vs\museu_multitematico\server_module\server_module.exe

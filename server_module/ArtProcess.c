@@ -25,6 +25,11 @@ struct ArtThreadStruct {
 	SOCKET clientSocket;
 };
 
+/*
+ *	A função abaixo possui uma string como parâmetro, representando a avaliação
+ *	do cliente sobre determinada arte. Essa função é reponsável por registrar a 
+ *	avaliação em um arquivo .CSV.
+ */
 void registerArtFeedback(char art_feedback[100]) {
 	char feedback_info[100], * token, * tokens[4], art_name[20];
 	int count = 0;
@@ -42,6 +47,8 @@ void registerArtFeedback(char art_feedback[100]) {
 	}
 
 	int art_id = atoi(tokens[0]);
+
+	// Loop que verifíca qual o id da arte avaliada.
 	for (int i = 0; i < 16; i++) {
 		if (art_id == art_name_list[i]) {
 			strcpy(art_name, art_name_list[i]);
@@ -61,17 +68,32 @@ void registerArtFeedback(char art_feedback[100]) {
 	fclose(fp);
 }
 
+/*
+ *	A função abaixo recebe como parâmetro um ponteiro para void, que representa a struct
+ *	"ArtThreadStruct" que foi passada como parâmetro na função "pthread_create()" chamada
+ *	no arquivo "Main.c".
+ */
 void* artHandler(void *arg) {
 	struct ArtThreadStruct *params = (struct ArtThreadStruct*)arg;
 	char num[10], art_feedback[100];
 
 	sprintf(num, "%d", params->num);
 
+	/*	
+	 *	Envia o valor da variável "num" para o cliente conectado.Essa variável representa
+	 *	o "ID" de uma arte do museu.
+	 */
 	send(params->clientSocket, num, sizeof(num), 0);
 
+	/*	
+	 *	Recebe a avaliação da arte correspondente ao valor de "num" e atribui para a variável
+	 *  "art_feedback".
+	 */
 	recv(params->clientSocket, art_feedback, sizeof(art_feedback), 0);
 
 	registerArtFeedback(art_feedback);
+
+	// Registra as informações sobre a arte avaliada no sistema.
 	appendToFile("server_resources\\stats\\daily\\art_stats.txt", num);
 	appendToFile("server_resources\\stats\\all\\art_stats.txt", num);
 }

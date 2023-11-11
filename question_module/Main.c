@@ -7,7 +7,7 @@
 #define ARE_YOU_SURE "question_resources\\screen_template.ans"
 #define INITIAL_SCREEN "question_resources\\initialscreen.ans"
 #define TEMP_DESC "question_resources\\description_template.ans"
-#define THANK_YOU "question_resources\\screen_template.ans"
+#define THANK_YOU "question_resources\\thank_you.ans"
 
 void loadScreen(char screen_path[100]) {
 	system("cls");
@@ -35,8 +35,8 @@ void setWindowSize(HANDLE console) {
 	if (console != INVALID_HANDLE_VALUE) {
 		// Define o tamanho do buffer de tela
 		COORD bufferSize;
-		bufferSize.X = 110; // 100 colunas
-		bufferSize.Y = 40;  // 50 linhas
+		bufferSize.X = 200; // 100 colunas
+		bufferSize.Y = 100;  // 50 linhas
 
 		SetConsoleScreenBufferSize(console, bufferSize);
 
@@ -44,7 +44,7 @@ void setWindowSize(HANDLE console) {
 		SMALL_RECT windowSize;
 		windowSize.Left = 0;
 		windowSize.Top = 0;
-		windowSize.Right = 109;  // 100 colunas - 1
+		windowSize.Right = 110;  // 100 colunas - 1
 		windowSize.Bottom = 39; // 50 linhas - 1
 
 		SetConsoleWindowInfo(console, TRUE, &windowSize);
@@ -78,14 +78,9 @@ void setWindowSize(HANDLE console) {
 }
 
 int main() {
-	system("vsdevcmd.bat");
-	system("cls");
 	int result, key, pos = 0, rate = 0;
 	char art_feedback[100], bnum[10], desc_path[100];
 	SOCKET clientSocket = socketSetup();
-	HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
-
-	setWindowSize(console);
 
 	while (1) {
 		result = connectSocket(clientSocket);
@@ -135,6 +130,11 @@ int main() {
 		break;
 	}
 
+	system("vsdevcmd.bat");
+	system("cls");
+	setWindowSize(GetStdHandle(STD_OUTPUT_HANDLE));
+	switchCursorView(GetStdHandle(STD_OUTPUT_HANDLE), 0);
+
 	while (1) {
 		switch (pos) {
 		case 0:
@@ -183,7 +183,7 @@ int main() {
 			sprintf(art_feedback, "%d,%d", inum, rate);
 			send(clientSocket, art_feedback, sizeof(art_feedback), 0);
 			loadScreen(THANK_YOU);
-			Sleep(3000);
+			Sleep(2000);
 			pos = 0;
 			break;
 		}
