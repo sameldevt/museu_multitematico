@@ -10,6 +10,17 @@ struct ThemeThreadStruct {
 	SOCKET clientSocket;
 };
 
+/*
+ * Verifica se o ingresso do usuário é válido.
+ *
+ * @param recv_ticket_id	string que representa o ID do ingresso para verificação.
+ * 
+ * @return 0				caso a verificação seja feita com êxito.
+ * @return 1				caso a verificação não seja feita com êxito. Esse caso representa que
+ *							o ingresso está expirado.
+ * @return 2				caso a verificação não seja feita com êxito. Esse caso representa que
+ *							o ingresso não é válido.
+ */
 int verifyTicketId(char recv_ticket_id[8]) {
 	char id[8];
 
@@ -72,6 +83,12 @@ int verifyTicketId(char recv_ticket_id[8]) {
 	return 2;
 }
 
+/*
+ * Gerencia a thread do terminal de catraca. Esse terminal é reponsável pela
+ * verificação do ingresso do usuário.
+ *
+ * @param arg	ponteiro para void que representa os argumentos usados na criação da thread.
+ */
 void* gateHandler(void* arg) {
 	struct ThemeThreadStruct* params = (struct ThemeThreadStruct*)arg;
 	int iResult;
@@ -79,23 +96,62 @@ void* gateHandler(void* arg) {
 
 	sprintf(theme_num, "%d", params->num);
 
+	// Loop que mantém o fluxo de verificação ativo.
 	while (1) {
+		/*
+		 * Recebe do cliente o ID do ingresso a ser verificado.
+		 *
+		 * @param params->clientSocket		soquete do cliente para receber o nome do usuário.
+		 * @param ticket_id					string que representa o nome do usuário.
+		 * @param sizeof(ticket_id)			tamanho da string.
+		 * @param 0							flag que modifica o comportamento da função "recv()".
+		 */
 		iResult = recv(params->clientSocket, ticket_id, sizeof(ticket_id), 0);
 
 		if (verifyTicketId(ticket_id) == 0) {
+			/*
+			 * Envia ao cliente o resultado da verificação.
+			 *
+			 * @param params->clientSocket		soquete do cliente para enviar a resposta da verificação.
+			 * @param success					string que representa o resultado da avaliação.
+			 * @param 8							tamanho da string.
+			 * @param 0							flag que modifica o comportamento da função "send()".
+			 */
 			send(params->clientSocket, "success", 8, 0);
+
+			// Registra as informações do ingresso no sistema
 			appendToFile("server_resources\\stats\\daily\\gate_stats.txt", theme_num);
 			appendToFile("server_resources\\stats\\all\\gate_stats.txt", theme_num);
 			continue;
 		}
 		else if (verifyTicketId(ticket_id) == 1) {
+			/*
+			 * Envia ao cliente o resultado da verificação.
+			 *
+			 * @param params->clientSocket		soquete do cliente para enviar a resposta da verificação.
+			 * @param expired					string que representa o resultado da avaliação.
+			 * @param 8							tamanho da string.
+			 * @param 0							flag que modifica o comportamento da função "send()".
+			 */
 			send(params->clientSocket, "expired", 8, 0);
+
+			// Registra as informações do ingresso no sistema
 			appendToFile("server_resources\\stats\\daily\\gate_stats.txt", theme_num);
 			appendToFile("server_resources\\stats\\all\\gate_stats.txt", theme_num);
 			continue;
 		}
 		else if (verifyTicketId(ticket_id) == 2) {
+			/*
+			 * Envia ao cliente o resultado da verificação.
+			 *
+			 * @param params->clientSocket		soquete do cliente para enviar a resposta da verificação.
+			 * @param invalid					string que representa o resultado da avaliação.
+			 * @param 8							tamanho da string.
+			 * @param 0							flag que modifica o comportamento da função "send()".
+			 */
 			send(params->clientSocket, "invalid", 8, 0);
+
+			// Registra as informações do ingresso no sistema
 			appendToFile("server_resources\\stats\\daily\\gate_stats.txt", theme_num);
 			appendToFile("server_resources\\stats\\all\\gate_stats.txt", theme_num);
 			continue;

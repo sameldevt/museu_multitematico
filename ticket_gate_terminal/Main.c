@@ -9,6 +9,11 @@
 #define INVALID "ticket_resources\\invalid.ans"
 #define LOADING "ticket_resources\\loading.ans"
 
+/*
+ * Carrega uma tela de acordo com o seu caminho.
+ *
+ * @param screen_path	representa o caminho da tela a ser carregada.
+*/
 void loadScreen(char screen_path[100]) {
 	system("cls");
 	FILE* fp = fopen(screen_path, "r");
@@ -22,14 +27,16 @@ void loadScreen(char screen_path[100]) {
 	fclose(fp);
 }
 
+// Ajusta o tamanho e centraliza a janela de console.
 void setScreenSize() {
 	HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
 
 	if (console != INVALID_HANDLE_VALUE) {
+
 		// Define o tamanho do buffer de tela
 		COORD bufferSize;
-		bufferSize.X = 75; // 100 colunas
-		bufferSize.Y = 40;  // 50 linhas
+		bufferSize.X = 75; 
+		bufferSize.Y = 40; 
 
 		SetConsoleScreenBufferSize(console, bufferSize);
 
@@ -37,8 +44,8 @@ void setScreenSize() {
 		SMALL_RECT windowSize;
 		windowSize.Left = 0;
 		windowSize.Top = 0;
-		windowSize.Right = 74;  // 100 colunas - 1
-		windowSize.Bottom = 39; // 50 linhas - 1
+		windowSize.Right = 74;  
+		windowSize.Bottom = 39; 
 
 		SetConsoleWindowInfo(console, TRUE, &windowSize);
 	}
@@ -47,6 +54,7 @@ void setScreenSize() {
 	HWND consoleWindow = GetConsoleWindow();
 
 	if (consoleWindow != NULL) {
+
 		// Obtém informações sobre a tela
 		RECT consoleRect;
 		GetWindowRect(consoleWindow, &consoleRect);
@@ -71,19 +79,27 @@ int main() {
 	int result;
 	SOCKET clientSocket = socketSetup();
 
+	// Ajusta o tamanho e centraliza a janela de console.
 	setScreenSize();
 
+	// Tenta se conectar ao servidor.
 	while (1) {
 		result = connectSocket(clientSocket);
 		if (result != 0) {
-			perror("Error connecting socket.\n");
-			perror("Trying again...\n");
 			Sleep(3000);
 			continue;
 		}
 		break;
 	}
 
+	/*
+	 * Envia ao servidor o tipo de cliente conectado.
+	 *
+	 * @param clientSocket		soquete do cliente para se conectar ao servidor.
+	 * @param client3			string que representa o tipo de cliente.
+	 * @param 8					tamanho da string.
+	 * @param 0					flag que modifica o comportamento da função "send()".
+	 */
 	result = send(clientSocket, "client3\0", 8, 0);
 
 	while (1) {
@@ -96,9 +112,26 @@ int main() {
 	
 		system("cls");
 
+		/*
+		 * Envia ao servidor o ID do ingresso para verificação.
+		 *
+		 * @param clientSocket			soquete do cliente para se conectar ao servidor.
+		 * @param ticket_id				string que representa o tipo de cliente.
+		 * @param sizeof(ticket_id)		tamanho da string.
+		 * @param 0						flag que modifica o comportamento da função "send()".
+		 */
 		result = send(clientSocket, ticket_id, sizeof(ticket_id), 0);
 ;		loadScreen(LOADING);
 		Sleep(1000);
+
+		/*
+		 * Recebe do servidor a resposta da verificação.
+		 *
+		 * @param clientSocket			soquete do cliente para receber a resposta da verificação.
+		 * @param response				string que representa a resposta do servidor.
+		 * @param sizeof(response)		tamanho da string.
+		 * @param 0						flag que modifica o comportamento da função "recv()".
+		 */
 		result = recv(clientSocket, response, sizeof(response), 0);
 
 		if(strcmp(response, "success") == 0){

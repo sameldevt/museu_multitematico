@@ -15,22 +15,26 @@ char art_list[16][20] = {
 };
 
 typedef struct {
-	//pagamento->tipo_de_ingresso, quantidade_de_ingressos, valor_pago;
 	int ticket_type[10000];
 	int ticket_count;
 	float total_sold_value;
 } PaymentStats;
 
 typedef struct {
-	//catraca->tema_visitado, hora_visitada;
 	int visited_theme[10000];
 } GateStats;
 
 typedef struct {
-	// questionario->arte_visitada, ;
 	int visited_art[10000];
 } ArtStats;
 
+/*
+ * Calcula qual a arte mais visitada.
+ *
+ * @param artStats				struct que representa as informações de artes.
+ *
+ * @return most_visited_art		o nome da arte mais visitada.
+ */
 char* calculateMostVisitedArt(ArtStats* artStats) {
 	int art_count[16];
 	char* most_visited_art = (char*)malloc(50);
@@ -62,6 +66,13 @@ char* calculateMostVisitedArt(ArtStats* artStats) {
 	return most_visited_art;
 }
 
+/*
+ * Calcula qual o tema mais visitada.
+ *
+ * @param gateStats					struct que representa as informações dos temas.
+ *
+ * @return most_visited_theme		o nome do tema mais visitada.
+ */
 char* calculateMostVisitedTheme(GateStats* gateStats) {
 	char* most_visited_theme = (char*)malloc(50);
 	int i = 0, theme_1 = 0, theme_2 = 0, theme_3 = 0, theme_4 = 0;
@@ -109,6 +120,13 @@ char* calculateMostVisitedTheme(GateStats* gateStats) {
 	return most_visited_theme;
 }
 
+/*
+ * Calcula qual tipo de ingresso mais vendido.
+ *
+ * @param paymentStats					struct que representa as informações de pagamento.
+ *
+ * @return most_purchased_ticket		o tipo de ingresso mais vendido.
+ */
 char* calculateMostPurchasedTicket(PaymentStats* paymentStats) {
 	char* most_purchased_ticket = (char*)malloc(20);
 	int i = 0, fullentry = 0, halfentry = 0, freeentry = 0;
@@ -146,6 +164,14 @@ char* calculateMostPurchasedTicket(PaymentStats* paymentStats) {
 	return most_purchased_ticket;
 }
 
+/*
+ * Carrega as informações de pagamento na memória.
+ *
+ * @param date				inteiro que representa a data de onde os dados serão carregados, sendo 0
+ *							os dados do dia e 1 todos os dados.
+ *
+ * @return paymentStats		um ponteiro para a struct "PaymentStats".
+ */
 PaymentStats* getPaymentStats(int date) {
 	PaymentStats* paymentStats = (PaymentStats*)malloc(sizeof(PaymentStats));
 	int* token, * tokens[3], count = 0, i = 0, ticket_type = 0, ticket_count = 0, ticket_value = 0;
@@ -183,6 +209,14 @@ PaymentStats* getPaymentStats(int date) {
 	return paymentStats;
 }
 
+/*
+ * Carrega as informações de arte na memória.
+ *
+ * @param date				inteiro que representa a data de onde os dados serão carregados, sendo 0
+ *							os dados do dia e 1 todos os dados.
+ *
+ * @return paymentStats		um ponteiro para a struct "ArtStats".
+ */
 ArtStats* getArtStats(int date) {
 	ArtStats* artStats = (ArtStats*)malloc(sizeof(artStats));
 	int i = 0;
@@ -206,6 +240,14 @@ ArtStats* getArtStats(int date) {
 	return getArtStats;
 }
 
+/*
+ * Carrega as informações do terminal de catraca na memória.
+ *
+ * @param date				inteiro que representa a data de onde os dados serão carregados, sendo 0
+ *							os dados do dia e 1 todos os dados.
+ *
+ * @return paymentStats		um ponteiro para a struct "GateStats".
+ */
 GateStats* getGateStats(int date) {
 	GateStats* gateStats = (GateStats*)malloc(sizeof(GateStats));
 	int* token, * tokens[3], count = 0, i = 0;
@@ -229,6 +271,7 @@ GateStats* getGateStats(int date) {
 	return gateStats;
 }
 
+// Gera o relatório diário do museu.
 void generateDailyReport() {
 	char date[30];
 	time_t rawtime;
@@ -254,6 +297,7 @@ void generateDailyReport() {
 	printf("Tema mais visitado: %s\n", calculateMostVisitedTheme(&gateStats));
 }
 
+// Gera o relatório completo do museu.
 void generateCompleteReport() {
 	char date[30];
 	time_t rawtime;
@@ -279,6 +323,7 @@ void generateCompleteReport() {
 	printf("Tema mais visitado: %s\n", calculateMostVisitedTheme(&gateStats));
 }
 
+// Imprime o log do servidor.
 int printServerLog() {
 	FILE* fp = fopen("server_resources\\server_log.txt", "r");
 

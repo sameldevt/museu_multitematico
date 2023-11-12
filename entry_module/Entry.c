@@ -9,11 +9,11 @@
 #include "Misc.h"
 
 /*
- *	Verifica a entrada normal de um cliente.
+ * Verifica a entrada normal de um cliente.
  * 
- *	@param clientSocket									soquete do cliente a ser verificado.
+ * @param clientSocket		soquete do cliente a ser verificado.
  * 
- *  @return	0											caso as informações do usuários forem válidas.
+ * @return 0				caso as informações do usuários forem válidas.
  */
 int verifyUserInfo(SOCKET clientSocket) {
 	int iResult;
@@ -21,12 +21,12 @@ int verifyUserInfo(SOCKET clientSocket) {
 
 	while (1) {
 		/*
-		 *	Envia ao servidor o tipo de entrada a ser verificado.
+		 * Envia ao servidor o tipo de entrada a ser verificado.
 		 *
-		 *  @param clientSocket							soquete do cliente para enviar o tipo de entrada.
-		 *  @param entry								string que representa o tipo de entrada.
-		 *  @param sizeof(entry)						tamanho da string.
-		 *  @param 0									flag que modifica o comportamento da função "send()".
+		 * @param clientSocket		soquete do cliente para enviar o tipo de entrada.
+		 * @param entry				string que representa o tipo de entrada.
+		 * @param sizeof(entry)		tamanho da string.
+		 * @param 0					flag que modifica o comportamento da função "send()".
 		 */	
 		iResult = send(clientSocket, entry, sizeof(entry), 0);
 		if (iResult == SOCKET_ERROR) {
@@ -37,35 +37,35 @@ int verifyUserInfo(SOCKET clientSocket) {
 		loadScreen(MENU_NORMAL_ENTRY);
 
 		/*
-		 *	Solicita e recebe uma entrada de usuário e atribui ao ponteiro "name".
+		 * Solicita e recebe uma entrada de usuário e atribui ao ponteiro "name".
 		 *  
-		 *  @param 52									tamanho máximo da string.
-		 *  @param 69									coordenada "x" onde será posicionado o cursor.
-		 *  @param 22									coordenada "y" onde será posicionado o cursor.
+		 * @param 52	tamanho máximo da string.
+		 * @param 69	coordenada "x" onde será posicionado o cursor.
+		 * @param 22	coordenada "y" onde será posicionado o cursor.
 		 */
 		char *name = enterInput(52, 69, 22);
 		 
 		/*
-		 *	Envia ao servidor o nome entrado anteriormente.
+		 * Envia ao servidor o nome entrado anteriormente.
 		 *
-		 *  @param clientSocket							soquete do cliente para enviar o nome do usuário.
-		 *  @param name									string que representa o nome do usuário.
-		 *  @param strlen(name)							tamanho da string.
-		 *  @param 0									flag que modifica o comportamento da função "send()".
+		 * @param clientSocket		soquete do cliente para enviar o nome do usuário.
+		 * @param name				string que representa o nome do usuário.
+		 * @param strlen(name)		tamanho da string.
+		 * @param 0					flag que modifica o comportamento da função "send()".
 		 */
 		iResult = send(clientSocket, name, strlen(name), 0);
 
 		/*
-		 *	Recebe do servidor a resposta da verificação.
+		 * Recebe do servidor a resposta da verificação.
 		 *
-		 *  @param clientSocket							soquete do cliente para receber a resposta da verificação.
-		 *  @param response								string que representa a resposta do servidor.
-		 *  @param sizeof(response)						tamanho da string.
-		 *  @param 0									flag que modifica o comportamento da função "send()".
+		 * @param clientSocket			soquete do cliente para receber a resposta da verificação.
+		 * @param response				string que representa a resposta do servidor.
+		 * @param sizeof(response)		tamanho da string.
+		 * @param 0						flag que modifica o comportamento da função "recv()".
 		 */
 		iResult = recv(clientSocket, response, sizeof(response), 0);
 
-		//	Verifica a resposta recebida. Caso seja "failed", o loop é reiniciado.
+		// Verifica a resposta recebida. Caso seja "failed", o loop é reiniciado.
 		if (strcmp(response, "failed") == 0) {
 			continue;
 		}
@@ -74,7 +74,7 @@ int verifyUserInfo(SOCKET clientSocket) {
 		break;
 	}
 
-	//	Desativa o cursor do console.
+	// Desativa o cursor do console.
 	setCursorView(0);
 	loadScreen(MENU_NORMAL_ENTRY_OK);
 	Sleep(1500);
@@ -82,11 +82,11 @@ int verifyUserInfo(SOCKET clientSocket) {
 }
 
 /*
- *	Verifica a meia entrada de estudante de um cliente.
+ * Verifica a meia entrada de estudante de um cliente.
  *
- *	@param clientSocket									soquete do cliente a ser verificado.
+ * @param clientSocket		soquete do cliente a ser verificado.
  *
- *  @return 0											caso as informações do usuários forem válidas.
+ * @return 0				caso as informações do usuários forem válidas.
  */
 int verifyStudentInfo(SOCKET clientSocket) {
 	int iResult;
@@ -96,22 +96,22 @@ int verifyStudentInfo(SOCKET clientSocket) {
 	loadScreen(MENU_STUDENT_ENTRY);
 
 	/*
-	 *	Solicita e recebe uma entrada de usuário e atribui ao ponteiro "name".
+	 * Solicita e recebe uma entrada de usuário e atribui ao ponteiro "name".
 	 *
-	 *  @param 52										tamanho máximo da string.
-	 *  @param 69										coordenada "x" onde será posicionado o cursor.
-	 *  @param 22										coordenada "y" onde será posicionado o cursor.
+	 * @param 52	tamanho máximo da string.
+	 * @param 69	coordenada "x" onde será posicionado o cursor.
+	 * @param 22	coordenada "y" onde será posicionado o cursor.
 	 */
 	char* name = enterInput(52, 69, 22);
 
 	while (1) {
 		/*
-		 *	Envia ao servidor o tipo de entrada a ser verificado.
+		 * Envia ao servidor o tipo de entrada a ser verificado.
 		 *
-		 *  @param clientSocket							soquete do cliente para enviar o tipo de entrada.
-		 *  @param entry								string que representa o tipo de entrada.
-		 *  @param sizeof(entry)						tamanho da string.
-		 *  @param 0									flag que modifica o comportamento da função "send()".
+		 * @param clientSocket		soquete do cliente para enviar o tipo de entrada.
+		 * @param entry				string que representa o tipo de entrada.
+		 * @param sizeof(entry)		tamanho da string.
+		 * @param 0					flag que modifica o comportamento da função "send()".
 		 */
 		iResult = send(clientSocket, entry, sizeof(entry), 0);
 		if (iResult == SOCKET_ERROR) {
@@ -121,58 +121,57 @@ int verifyStudentInfo(SOCKET clientSocket) {
 		loadScreen(MENU_STUDENT_ENTRY);
 
 		/*
-		 *	Define a cor de fundo e do texto do console.
+		 * Define a cor de fundo e do texto do console.
 		 *  
-		 *  @param GetStdHandle(STD_OUTPUT_HANDLE)		saída padrão (console).
-		 *  @param 240									valor que representa as cores do console.
+		 * @param GetStdHandle(STD_OUTPUT_HANDLE)	saída padrão (console).
+		 * @param 240								valor que representa as cores do console.
 		 */
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 240);
 
 		/*
-		 *	Define a posição do cursor do console.
+		 * Define a posição do cursor do console.
 		 *
-		 *  @param 69									coordenada "x" onde será posicionado o cursor.
-		 *  @param 22									coordenada "y" onde será posicionado o cursor.
+		 * @param 69	coordenada "x" onde será posicionado o cursor.
+		 * @param 22	coordenada "y" onde será posicionado o cursor.
 		 */
 		setCursorLocation(69, 22);
 		printf("%s", name);
 
 		/*
-		 *	Solicita e recebe uma entrada de usuário e atribui ao
-		 *  ponteiro "student_id".
+		 * Solicita e recebe uma entrada de usuário e atribui ao ponteiro "student_id".
 		 *
-		 *  @param 52									tamanho máximo da string.
-		 *  @param 69									coordenada "x" onde será posicionado o cursor.
-		 *  @param 26									coordenada "y" onde será posicionado o cursor.
+		 * @param 52	tamanho máximo da string.
+		 * @param 69	coordenada "x" onde será posicionado o cursor.
+		 * @param 26	coordenada "y" onde será posicionado o cursor.
 		 */
 		char *student_id = enterInput(52, 69, 26);
 
 		sprintf(info, "%s,%s", name, student_id);
 
 		/*
-		 *	Envia ao servidor as informações do cliente.
+		 * Envia ao servidor as informações do cliente.
 		 *
-		 *  @param clientSocket							soquete do cliente para enviar as informações do usuário.
-		 *  @param info									string que representa as informações do cliente.
-		 *  @param sizeof(info)							tamanho da string.
-		 *  @param 0									flag que modifica o comportamento da função "send()".
+		 * @param clientSocket		soquete do cliente para enviar as informações do usuário.
+		 * @param info				string que representa as informações do cliente.
+		 * @param sizeof(info)		tamanho da string.
+		 * @param 0					flag que modifica o comportamento da função "send()".
 		 */
 		iResult = send(clientSocket, info, sizeof(info), 0);
 
 		/*
-		 *	Recebe do servidor a resposta da verificação.
+		 * Recebe do servidor a resposta da verificação.
 		 *
-		 *  @param clientSocket							soquete do cliente para receber a resposta da verificação.
-		 *  @param response								string que representa a resposta do servidor.
-		 *  @param sizeof(response)						tamanho da string.
-		 *  @param 0									flag que modifica o comportamento da função "send()".
+		 * @param clientSocket			soquete do cliente para receber a resposta da verificação.
+		 * @param response				string que representa a resposta do servidor.
+		 * @param sizeof(response)		tamanho da string.
+		 * @param 0						flag que modifica o comportamento da função "recv()".
 		 */
 		iResult = recv(clientSocket, response, 8, 0);
 
-		//	Verifica a resposta recebida. Caso seja "failed", o loop é reiniciado.
+		// Verifica a resposta recebida. Caso seja "failed", o loop é reiniciado.
 		if (strcmp(response, "failed") == 0) {
 
-			//	Desativa o cursor do console.
+			// Desativa o cursor do console.
 			setCursorView(0);
 			loadScreen(MENU_STUDENT_ENTRY_FAIL);
 			free(student_id);
@@ -185,7 +184,7 @@ int verifyStudentInfo(SOCKET clientSocket) {
 		break;
 	}
 
-	//	Desativa o cursor do console.
+	// Desativa o cursor do console.
 	setCursorView(0);
 	loadScreen(MENU_STUDENT_ENTRY_OK);
 	Sleep(1500);
@@ -193,11 +192,11 @@ int verifyStudentInfo(SOCKET clientSocket) {
 }
 
 /*
- *	Verifica a meia entrada da pessoa com deficiência de um cliente.
+ * Verifica a meia entrada da pessoa com deficiência de um cliente.
  *
- *	@param clientSocket									soquete do cliente a ser verificado.
+ * @param clientSocket		soquete do cliente a ser verificado.
  *
- *  @return 0											caso as informações do usuários forem válidas.
+ * @return 0				caso as informações do usuários forem válidas.
  */
 int verifyDisabledPersonInfo(SOCKET clientSocket) {
 	int iResult;
@@ -207,23 +206,22 @@ int verifyDisabledPersonInfo(SOCKET clientSocket) {
 	loadScreen(MENU_DISABLED_PERSON_ENTRY);
 
 	/*
-	 *	Solicita e recebe uma entrada de usuário e atribui ao
-	 *  ponteiro "name".
+	 * Solicita e recebe uma entrada de usuário e atribui ao ponteiro "name".
 	 *
-	 *  @param 52										tamanho máximo da string.
-	 *  @param 69										coordenada "x" onde será posicionado o cursor.
-	 *  @param 22										coordenada "y" onde será posicionado o cursor.
+	 * @param 52	tamanho máximo da string.
+	 * @param 69	coordenada "x" onde será posicionado o cursor.
+	 * @param 22	coordenada "y" onde será posicionado o cursor.
 	 */
 	char* name = enterInput(52, 69, 22);
 
 	while (1) {
 		/*
-		 *	Envia ao servidor o tipo de entrada a ser verificado.
+		 * Envia ao servidor o tipo de entrada a ser verificado.
 		 *
-		 *  @param clientSocket							soquete do cliente para enviar o tipo de entrada.
-		 *  @param entry								string que representa o tipo de entrada.
-		 *  @param sizeof(entry)						tamanho da string.
-		 *  @param 0									flag que modifica o comportamento da função "send()".
+		 * @param clientSocket		soquete do cliente para enviar o tipo de entrada.
+		 * @param entry				string que representa o tipo de entrada.
+		 * @param sizeof(entry)		tamanho da string.
+		 * @param 0					flag que modifica o comportamento da função "send()".
 		 */
 		iResult = send(clientSocket, entry, sizeof(entry), 0);
 		if (iResult == SOCKET_ERROR) {
@@ -233,58 +231,57 @@ int verifyDisabledPersonInfo(SOCKET clientSocket) {
 		loadScreen(MENU_DISABLED_PERSON_ENTRY);
 
 		/*
-		 *	Define a cor de fundo e do texto do console.
+		 * Define a cor de fundo e do texto do console.
 		 *
-		 *  @param GetStdHandle(STD_OUTPUT_HANDLE)		saída padrão (console).
-		 *  @param 240									valor que representa as cores do console.
+		 * @param GetStdHandle(STD_OUTPUT_HANDLE)		saída padrão (console).
+		 * @param 240									valor que representa as cores do console.
 		 */
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 240);
 
 		/*
-		 *	Define a posição do cursor do console.
+		 * Define a posição do cursor do console.
 		 *
-		 *  @param 69									coordenada "x" onde será posicionado o cursor.
-		 *  @param 22									coordenada "y" onde será posicionado o cursor.
+		 * @param 69	coordenada "x" onde será posicionado o cursor.
+		 * @param 22	coordenada "y" onde será posicionado o cursor.
 		 */
 		setCursorLocation(69, 22);
 		printf("%s", name);
 
 		/*
-		 *	Solicita e recebe uma entrada de usuário e atribui ao
-		 *  ponteiro "disabled_person_id".
+		 * Solicita e recebe uma entrada de usuário e atribui ao ponteiro "disabled_person_id".
 		 *
-		 *  @param 52									tamanho máximo da string.
-		 *  @param 69									coordenada "x" onde será posicionado o cursor.
-		 *  @param 26									coordenada "y" onde será posicionado o cursor.
+		 * @param 52	tamanho máximo da string.
+		 * @param 69	coordenada "x" onde será posicionado o cursor.
+		 * @param 26	coordenada "y" onde será posicionado o cursor.
 		 */
 		char* disabled_person_id = enterInput(52, 69, 26);
 
 		sprintf(info, "%s,%s", name, disabled_person_id);
 
 		/*
-		 *	Envia ao servidor as informações do cliente.
+		 * Envia ao servidor as informações do cliente.
 		 *
-		 *  @param clientSocket							soquete do cliente para enviar as informações do usuário.
-		 *  @param info									string que representa as informações do cliente.
-		 *  @param sizeof(info)							tamanho da string.
-		 *  @param 0									flag que modifica o comportamento da função "send()".
+		 * @param clientSocket		soquete do cliente para enviar as informações do usuário.
+		 * @param info				string que representa as informações do cliente.
+		 * @param sizeof(info)		tamanho da string.
+		 * @param 0					flag que modifica o comportamento da função "send()".
 		 */
 		iResult = send(clientSocket, info, sizeof(info), 0);
 
 		/*
-		 *	Recebe do servidor a resposta da verificação.
+		 * Recebe do servidor a resposta da verificação.
 		 *
-		 *  @param clientSocket							soquete do cliente para receber a resposta da verificação.
-		 *  @param response								string que representa a resposta do servidor.
-		 *  @param sizeof(response)						tamanho da string.
-		 *  @param 0									flag que modifica o comportamento da função "send()".
+		 * @param clientSocket			soquete do cliente para receber a resposta da verificação.
+		 * @param response				string que representa a resposta do servidor.
+		 * @param sizeof(response)		tamanho da string.
+		 * @param 0						flag que modifica o comportamento da função "recv()".
 		 */
 		iResult = recv(clientSocket, response, sizeof(response), 0);
 
-		//	Verifica a resposta recebida. Caso seja "failed", o loop é reiniciado.
+		// Verifica a resposta recebida. Caso seja "failed", o loop é reiniciado.
 		if (strcmp(response, "failed") == 0) {
 
-			//	Desativa o cursor do console.
+			// Desativa o cursor do console.
 			setCursorView(0);
 			loadScreen(MENU_DISABLED_PERSON_ENTRY_FAIL);
 			free(disabled_person_id);
@@ -297,7 +294,7 @@ int verifyDisabledPersonInfo(SOCKET clientSocket) {
 		break;
 	}
 
-	//	Desativa o cursor do console.
+	// Desativa o cursor do console.
 	setCursorView(0);
 	loadScreen(MENU_DISABLED_PERSON_ENTRY_OK);
 	Sleep(1500);
@@ -305,11 +302,11 @@ int verifyDisabledPersonInfo(SOCKET clientSocket) {
 }
 
 /*
- *	Verifica a entra gratuita de criança de um cliente.
+ * Verifica a entra gratuita de criança de um cliente.
  *
- *	@param clientSocket									soquete do cliente a ser verificado.
+ * @param clientSocket		soquete do cliente a ser verificado.
  *
- *  @return 0											caso as informações do usuários forem válidas.
+ * @return 0				caso as informações do usuários forem válidas.
  */
 int verifyJuniorInfo(SOCKET clientSocket) {
 	int iResult;
@@ -319,22 +316,22 @@ int verifyJuniorInfo(SOCKET clientSocket) {
 	loadScreen(MENU_JUNIOR_ENTRY);
 
 	/*
-	 *	Solicita e recebe uma entrada de usuário e atribui ao ponteiro "name".
+	 * Solicita e recebe uma entrada de usuário e atribui ao ponteiro "name".
 	 *
-	 *  @param 52										tamanho máximo da string.
-	 *  @param 69										coordenada "x" onde será posicionado o cursor.
-	 *  @param 22										coordenada "y" onde será posicionado o cursor.
+	 * @param 52	tamanho máximo da string.
+	 * @param 69	coordenada "x" onde será posicionado o cursor.
+	 * @param 22	coordenada "y" onde será posicionado o cursor.
 	 */
 	char* name = enterInput(52, 69, 22);
 
 	while (1) {
 		/*
-		 *	Envia ao servidor o tipo de entrada a ser verificado.
+		 * Envia ao servidor o tipo de entrada a ser verificado.
 		 *
-		 *  @param clientSocket							soquete do cliente para enviar o tipo de entrada.
-		 *  @param entry								string que representa o tipo de entrada.
-		 *  @param sizeof(entry)						tamanho da string.
-		 *  @param 0									flag que modifica o comportamento da função "send()".
+		 * @param clientSocket		soquete do cliente para enviar o tipo de entrada.
+		 * @param entry				string que representa o tipo de entrada.
+		 * @param sizeof(entry)		tamanho da string.
+		 * @param 0					flag que modifica o comportamento da função "send()".
 		 */
 		iResult = send(clientSocket, entry, sizeof(entry), 0);
 		if (iResult == SOCKET_ERROR) {
@@ -344,57 +341,57 @@ int verifyJuniorInfo(SOCKET clientSocket) {
 		loadScreen(MENU_JUNIOR_ENTRY);
 
 		/*
-		 *	Define a cor de fundo e do texto do console.
+		 * Define a cor de fundo e do texto do console.
 		 *
-		 *  @param GetStdHandle(STD_OUTPUT_HANDLE)		saída padrão (console).
-		 *  @param 240									valor que representa as cores do console.
+		 * @param GetStdHandle(STD_OUTPUT_HANDLE)		saída padrão (console).
+		 * @param 240									valor que representa as cores do console.
 		 */
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 240);
 
 		/*
-		 *	Define a posição do cursor do console.
+		 * Define a posição do cursor do console.
 		 *
-		 *  @param 69									coordenada "x" onde será posicionado o cursor.
-		 *  @param 22									coordenada "y" onde será posicionado o cursor.
+		 * @param 69	coordenada "x" onde será posicionado o cursor.
+		 * @param 22	coordenada "y" onde será posicionado o cursor.
 		 */
 		setCursorLocation(69, 22);
 		printf("%s", name);
 
 		/*
-		 *	Solicita e recebe uma entrada de usuário e atribui ao ponteiro "age".
+		 * Solicita e recebe uma entrada de usuário e atribui ao ponteiro "age".
 		 *
-		 *  @param 52									tamanho máximo da string.
-		 *  @param 69									coordenada "x" onde será posicionado o cursor.
-		 *  @param 26									coordenada "y" onde será posicionado o cursor.
+		 * @param 52	tamanho máximo da string.
+		 * @param 69	coordenada "x" onde será posicionado o cursor.
+		 * @param 26	coordenada "y" onde será posicionado o cursor.
 		 */
 		char* age = enterInput(52, 69, 26);
 
 		sprintf(info, "%s,%s", name, age);
 
 		/*
-		 *	Envia ao servidor as informações do cliente.
+		 * Envia ao servidor as informações do cliente.
 		 *
-		 *  @param clientSocket							soquete do cliente para enviar as informações do usuário.
-		 *  @param info									string que representa as informações do cliente.
-		 *  @param sizeof(info)							tamanho da string.
-		 *  @param 0									flag que modifica o comportamento da função "send()".
+		 * @param clientSocket		soquete do cliente para enviar as informações do usuário.
+		 * @param info				string que representa as informações do cliente.
+		 * @param sizeof(info)		tamanho da string.
+		 * @param 0					flag que modifica o comportamento da função "send()".
 		 */
 		iResult = send(clientSocket, info, sizeof(info), 0);
 
 		/*
-		 *	Recebe do servidor a resposta da verificação.
+		 * Recebe do servidor a resposta da verificação.
 		 *
-		 *  @param clientSocket							soquete do cliente para receber a resposta da verificação.
-		 *  @param response								string que representa a resposta do servidor.
-		 *  @param sizeof(response)						tamanho da string.
-		 *  @param 0									flag que modifica o comportamento da função "send()".
+		 * @param clientSocket			soquete do cliente para receber a resposta da verificação.
+		 * @param response				string que representa a resposta do servidor.
+		 * @param sizeof(response)		tamanho da string.
+		 * @param 0						flag que modifica o comportamento da função "recv()".
 		 */
 		iResult = recv(clientSocket, response, sizeof(response), 0);
 
-		//	Verifica a resposta recebida. Caso seja "failed", o loop é reiniciado.
+		// Verifica a resposta recebida. Caso seja "failed", o loop é reiniciado.
 		if (strcmp(response, "failed") == 0) {
 
-			//	Desativa o cursor do console.
+			// Desativa o cursor do console.
 			setCursorView(0);
 			loadScreen(MENU_JUNIOR_ENTRY_FAIL);
 			free(age);
@@ -407,7 +404,7 @@ int verifyJuniorInfo(SOCKET clientSocket) {
 		break;
 	}
 
-	//	Desativa o cursor do console.
+	// Desativa o cursor do console.
 	setCursorView(0);
 	loadScreen(MENU_JUNIOR_ENTRY_OK);
 	Sleep(1500);
@@ -415,11 +412,11 @@ int verifyJuniorInfo(SOCKET clientSocket) {
 }
 
 /*
- *	Verifica a entrada gratuita de idoso de um cliente.
+ * Verifica a entrada gratuita de idoso de um cliente.
  *
- *	@param clientSocket									soquete do cliente a ser verificado.
+ * @param clientSocket	soquete do cliente a ser verificado.
  *
- *  @return 0											caso as informações do usuários forem válidas.
+ * @return 0			caso as informações do usuários forem válidas.
  */
 int verifySeniorInfo(SOCKET clientSocket) {
 	int iResult;
@@ -429,23 +426,22 @@ int verifySeniorInfo(SOCKET clientSocket) {
 	loadScreen(MENU_SENIOR_ENTRY);
 
 	/*
-	 *	Solicita e recebe uma entrada de usuário e atribui ao
-	 *  ponteiro "name".
+	 * Solicita e recebe uma entrada de usuário e atribui ao ponteiro "name".
 	 *
-	 *  @param 52 O tamanho máximo da string.
-	 *  @param 69 Coordenada "x" onde será posicionado o cursor.
-	 *  @param 22 Coordenada "y" onde será posicionado o cursor.
+	 * @param 52	tamanho máximo da string.
+	 * @param 69	coordenada "x" onde será posicionado o cursor.
+	 * @param 22	coordenada "y" onde será posicionado o cursor.
 	 */
 	char* name = enterInput(52, 69, 22);
 
 	while (1) {
 		/*
-		 *	Envia ao servidor o tipo de entrada a ser verificado.
+		 * Envia ao servidor o tipo de entrada a ser verificado.
 		 *
-		 *  @param clientSocket							soquete do cliente para enviar o tipo de entrada.
-		 *  @param entry								string que representa o tipo de entrada.
-		 *  @param sizeof(entry)						tamanho da string.
-		 *  @param 0									flag que modifica o comportamento da função "send()".
+		 * @param clientSocket		soquete do cliente para enviar o tipo de entrada.
+		 * @param entry				string que representa o tipo de entrada.
+		 * @param sizeof(entry)		tamanho da string.
+		 * @param 0					flag que modifica o comportamento da função "send()".
 		 */
 		iResult = send(clientSocket, entry, sizeof(entry), 0);
 		if (iResult == SOCKET_ERROR) {
@@ -455,57 +451,57 @@ int verifySeniorInfo(SOCKET clientSocket) {
 		loadScreen(MENU_SENIOR_ENTRY);
 
 		/*
-		 *	Define a cor de fundo e do texto do console.
+		 * Define a cor de fundo e do texto do console.
 		 *
-		 *  @param GetStdHandle(STD_OUTPUT_HANDLE)		saída padrão (console).
-		 *  @param 240									valor que representa as cores do console.
+		 * @param GetStdHandle(STD_OUTPUT_HANDLE)	saída padrão (console).
+		 * @param 240								valor que representa as cores do console.
 		 */
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 240);
 
 		/*
-		 *	Define a posição do cursor do console.
+		 * Define a posição do cursor do console.
 		 *
-		 *  @param 69									coordenada "x" onde será posicionado o cursor.
-		 *  @param 22									coordenada "y" onde será posicionado o cursor.
+		 * @param 69	coordenada "x" onde será posicionado o cursor.
+		 * @param 22	coordenada "y" onde será posicionado o cursor.
 		 */
 		setCursorLocation(69, 22);
 		printf("%s", name);
 
 		/*
-		 *	Solicita e recebe uma entrada de usuário e atribui ao ponteiro "age".
+		 * Solicita e recebe uma entrada de usuário e atribui ao ponteiro "age".
 		 *
-		 *  @param 52									tamanho máximo da string.
-		 *  @param 69									coordenada "x" onde será posicionado o cursor.
-		 *  @param 26									coordenada "y" onde será posicionado o cursor.
+		 * @param 52	tamanho máximo da string.
+		 * @param 69	coordenada "x" onde será posicionado o cursor.
+		 * @param 26	coordenada "y" onde será posicionado o cursor.
 		 */
 		char* age = enterInput(52, 69, 26);
 
 		sprintf(info, "%s,%s", name, age);
 
 		/*
-		 *	Envia ao servidor as informações do cliente.
+		 * Envia ao servidor as informações do cliente.
 		 *
-		 *  @param clientSocket							soquete do cliente para enviar as informações do usuário.
-		 *  @param info									string que representa as informações do cliente.
-		 *  @param sizeof(info)							tamanho da string.
-		 *  @param 0									flag que modifica o comportamento da função "send()".
+		 * @param clientSocket		soquete do cliente para enviar as informações do usuário.
+		 * @param info				string que representa as informações do cliente.
+		 * @param sizeof(info)		tamanho da string.
+		 * @param 0					flag que modifica o comportamento da função "send()".
 		 */
 		iResult = send(clientSocket, info, sizeof(info), 0);
 
 		/*
-		 *	Recebe do servidor a resposta da verificação.
+		 * Recebe do servidor a resposta da verificação.
 		 *
-		 *  @param clientSocket							soquete do cliente para receber a resposta da verificação.
-		 *  @param response								string que representa a resposta do servidor.
-		 *  @param sizeof(response)						tamanho da string.
-		 *  @param 0									flag que modifica o comportamento da função "send()".
+		 * @param clientSocket			soquete do cliente para receber a resposta da verificação.
+		 * @param response				string que representa a resposta do servidor.
+		 * @param sizeof(response)		tamanho da string.
+		 * @param 0						flag que modifica o comportamento da função "recv()".
 		 */
 		iResult = recv(clientSocket, response, sizeof(response), 0);
 
-		//	Verifica a resposta recebida. Caso seja "failed", o loop é reiniciado.
+		// Verifica a resposta recebida. Caso seja "failed", o loop é reiniciado.
 		if (strcmp(response, "failed") == 0) {
 
-			//	Desativa o cursor do console.
+			// Desativa o cursor do console.
 			setCursorView(0);
 			loadScreen(MENU_SENIOR_ENTRY_FAIL);
 			free(age);
@@ -518,7 +514,7 @@ int verifySeniorInfo(SOCKET clientSocket) {
 		break;
 	}
 
-	//	Desativa o cursor do console.
+	// Desativa o cursor do console.
 	setCursorView(0);
 	loadScreen(MENU_SENIOR_ENTRY_OK);
 	Sleep(1500);
@@ -526,17 +522,16 @@ int verifySeniorInfo(SOCKET clientSocket) {
 }
 
 /*
- *	Verifica qual entrada o usuário escolheu.
+ * Verifica qual entrada o usuário escolheu.
  *
- *	@param clientSocket									soquete do cliente a ser verificado.
+ * @param clientSocket		soquete do cliente a ser verificado.
  *
- *  @return												Retorna o valor correspondente a entrada escolhida caso a 
- *														verificação seja concluída com êxito.
+ * @return					Retorna o valor correspondente a entrada escolhida caso a verificação seja concluída com êxito.
  */
 int selectEntry(SOCKET clientSocket) {
 	int key, iResult;
 
-	//	Verifica se as informações que o usuário entrou são validas.
+	// Verifica se as informações que o usuário entrou são validas.
 	while (_kbhit() == NULL) {
 		loadScreen(TICKET_TYPE_MENU);
 		key = _getch();

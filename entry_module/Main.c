@@ -13,7 +13,7 @@ int main() {
 	SOCKET clientSocket = socketSetup();
 	HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
 
-	//	Tenta se conectar ao servidor.
+	// Tenta se conectar ao servidor.
 	while (1) {
 		result = connectSocket(clientSocket);
 		if (result != 0) {
@@ -23,13 +23,13 @@ int main() {
 		break;
 	}
 
-	//	Define o tamanho da janela do console.
+	// Define o tamanho da janela do console.
 	setHorizontalSize();
 
 	while (1) {
 		switch (pos) {
 		case 0:
-			//	Desativa o cursor do console.
+			// Desativa o cursor do console.
 			setCursorView(0);
 			if (_kbhit() == NULL) {
 				loadScreen(WELCOME_SCREEN);
@@ -39,7 +39,7 @@ int main() {
 				}
 			}
 		case 1:
-			//	Desativa o cursor do console.
+			// Desativa o cursor do console.
 			setCursorView(0);
 			if (_kbhit() == NULL) {
 				loadScreen(MENU_MAIN);
@@ -68,32 +68,31 @@ int main() {
 			break;
 
 		case 2:
-			//	Desativa o cursor do console.
+			// Desativa o cursor do console.
 			setCursorView(0);
 			loadScreen(TICKET_MENU);
 
 			/*
-			 *	Solicita e recebe uma entrada de usuário e atribui ao ponteiro "aux".
+			 * Solicita e recebe uma entrada de usuário e atribui ao ponteiro "aux".
 			 *
-			 *  @param 52								tamanho máximo da string.
-			 *  @param 69								coordenada "x" onde será posicionado o cursor.
-			 *  @param 22								coordenada "y" onde será posicionado o cursor.
+			 * @param 52	tamanho máximo da string.
+			 * @param 69	coordenada "x" onde será posicionado o cursor.
+			 * @param 22	coordenada "y" onde será posicionado o cursor.
 			 */
 			char* aux = enterInput(52, 69, 22);
 			ticket_count = atoi(aux);
 			pos = 3;
 			break;
 		case 3:
-			//	Desativa o cursor do console.
+			// Desativa o cursor do console.
 			setCursorView(0);
 
 			/*
-			 *	Verifica qual entrada o usuário escolheu.
+			 * Verifica qual entrada o usuário escolheu.
 			 *
-			 *	@param clientSocket						soquete do cliente a ser verificado.
+			 * @param clientSocket		soquete do cliente a ser verificado.
 			 *
-			 *  @return									Retorna o valor correspondente a entrada escolhida
-			 *											caso a verificação seja concluída com êxito.
+			 * @return					retorna o valor correspondente a entrada escolhida caso a verificação seja concluída com êxito.
 			 */
 			entry = selectEntry(clientSocket);
 			if (entry == 2) {
@@ -103,17 +102,17 @@ int main() {
 			pos = 4;
 			break;
 		case 4:
-			//	Desativa o cursor do console.
+			// Desativa o cursor do console.
 			setCursorView(0);
 
 			/*
-			 *	Verifica qual pagamento o usuário escolheu.
+			 * Verifica qual pagamento o usuário escolheu.
 			 *
-			 *	@param clientSocket						soquete do cliente a ser verificado.
-			 *  @param entry							inteiro que representa o tipo de entrada do usuário.
-			 *  @param ticket_count						inteiro que representa a quantidade de ingressos comprados pelo usuário.
+			 * @param clientSocket		soquete do cliente a ser verificado.
+			 * @param entry				inteiro que representa o tipo de entrada do usuário.
+			 * @param ticket_count		inteiro que representa a quantidade de ingressos comprados pelo usuário.
 			 *
-			 *  @return	0								caso o pagamento seja verificado com êxito.
+			 * @return 0				caso o pagamento seja verificado com êxito.
 			 */
 			result = selectPayment(clientSocket, entry, ticket_count);
 			pos = 5;

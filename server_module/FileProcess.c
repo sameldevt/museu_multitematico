@@ -3,6 +3,11 @@
 
 #include "FileProcess.h"
 
+/*
+ * Carrega um arquivo no modo de leitura de acordo com o seu caminho.
+ *
+ * @param file_path		representa o caminho do arquivo a ser carregado.
+ */
 void readFile(char file_path[100]) {
 
 	FILE* fp = fopen(file_path, "r");
@@ -16,6 +21,12 @@ void readFile(char file_path[100]) {
 	fclose(fp);
 }
 
+/*
+ * Carrega um arquivo no modo de escrita de acordo com o seu caminho.
+ *
+ * @param file_path		representa o caminho do arquivo a ser carregado.
+ * @param input			mensagem que será registrada no aqruivo.
+ */
 void writeFile(char file_path[100], char input[]) {
 
 	FILE* fp = fopen(file_path, "w");
@@ -25,6 +36,12 @@ void writeFile(char file_path[100], char input[]) {
 	fclose(fp);
 }
 
+/*
+ * Carrega um arquivo no modo de anexo de acordo com o seu caminho.
+ *
+ * @param file_path		representa o caminho do arquivo a ser carregado.
+ * @param input			mensagem que será registrada no aqruivo.
+ */
 void appendToFile(char file_path[100], char input[100]) {
 	char input_ref[100];
 
@@ -35,6 +52,11 @@ void appendToFile(char file_path[100], char input[100]) {
 	fclose(fp);
 }
 
+/*
+ * Registra um usuário no sistema.
+ *
+ * @param name		representa o nome do usuário a ser registrado
+ */
 void registerUser(char name[100]) {
 	char user[100];
 	sprintf(user, "%s\n", name);

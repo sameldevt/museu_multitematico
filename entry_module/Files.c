@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include "Files.h"
 
-//	Carrega a tela de carregamento.
+// Carrega a tela de carregamento.
 void loadLoadingScreen() {
 	system("cls");
 	FILE* fp1 = fopen(LOADING_SCREEN, "r");
@@ -20,9 +20,9 @@ void loadLoadingScreen() {
 }
 
 /*
- *	Carrega uma tela de acordo com o seu caminho.
+ * Carrega uma tela de acordo com o seu caminho.
  *
- *	@param screen_path									representa o caminho da tela a ser carregada.
+ * @param screen_path	representa o caminho da tela a ser carregada.
 */
 void loadScreen(char screen_path[100]) {
 	system("cls");
@@ -38,10 +38,10 @@ void loadScreen(char screen_path[100]) {
 }
 
 /*
- *	Carrega um arquivo no modo de leitura de acordo com o seu caminho.
+ * Carrega um arquivo no modo de leitura de acordo com o seu caminho.
  *
- *	@param file_path									representa o caminho do arquivo a ser carregado.
-*/
+ * @param file_path		representa o caminho do arquivo a ser carregado.
+ */
 void readFile(char file_path[100]) {
 	FILE* fp = fopen(file_path, "r");
 

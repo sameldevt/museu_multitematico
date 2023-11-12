@@ -5,17 +5,16 @@
 #include <windows.h>
 #include <conio.h>
 
-int main() {
-
-	system("vsdevcmd.bat");
-	system("cls");
+// Ajusta o tamanho e centraliza a janela de console.
+int setWindowSize() {
 	HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
 
 	if (console != INVALID_HANDLE_VALUE) {
+
 		// Define o tamanho do buffer de tela
 		COORD bufferSize;
-		bufferSize.X = 200; // 100 colunas
-		bufferSize.Y = 200;  // 50 linhas
+		bufferSize.X = 200;
+		bufferSize.Y = 200;
 
 		SetConsoleScreenBufferSize(console, bufferSize);
 
@@ -23,8 +22,8 @@ int main() {
 		SMALL_RECT windowSize;
 		windowSize.Left = 0;
 		windowSize.Top = 0;
-		windowSize.Right = 50;  // 100 colunas - 1
-		windowSize.Bottom = 46; // 50 linhas - 1
+		windowSize.Right = 50;  
+		windowSize.Bottom = 46; 
 
 		SetConsoleWindowInfo(console, TRUE, &windowSize);
 	}
@@ -33,6 +32,7 @@ int main() {
 	HWND consoleWindow = GetConsoleWindow();
 
 	if (consoleWindow != NULL) {
+
 		// Obtém informações sobre a tela
 		RECT consoleRect;
 		GetWindowRect(consoleWindow, &consoleRect);
@@ -50,19 +50,26 @@ int main() {
 		// Move o console para as coordenadas calculadas
 		MoveWindow(consoleWindow, consoleX, consoleY, consoleWidth, consoleHeight, TRUE);
 	}
+}
 
+int main() {
 	char ticket_id[10], ticket[100];
 	char item_code[4] = "001", product_code[10] = "123.456.7", item_desc[18] = "INGRESSO MPB 2023";
 	float item_value = 5.00;
 	char ticketpath[100];
 	int count = 0;
-
 	time_t rawtime;
 	struct tm* timeinfo;
 	time(&rawtime);
 	timeinfo = localtime(&rawtime);
 	srand(time(NULL));
 
+	system("vsdevcmd.bat");
+	system("cls");
+
+	// Ajusta o tamanho e centraliza a janela de console.
+	setWindowSize();
+	
 	FILE * fp = fopen("..\\server_module\\server_resources\\ticket_info_temp.csv", "r");
 
 	char buf[100], * tokens[6], * token;

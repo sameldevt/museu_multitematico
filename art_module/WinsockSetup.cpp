@@ -11,35 +11,35 @@ struct addrinfo* ptr = NULL;
 struct addrinfo hints;
 
 /*
- *	Configura um soquete para o cliente.
+ * Configura um soquete para o cliente.
  *
- *  @return	clientSocket								caso a configuração do soquete seja feita com sucesso.
+ * @return clientSocket		caso a configuração do soquete seja feita com sucesso.
  */
 SOCKET socketSetup() {
 	WSADATA wsaData;
 	int iResult;
 
-	//	Inicializa a biblioteca Winsock.
+	// Inicializa a biblioteca Winsock.
 	iResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
 	if (iResult != 0) {
 		return 1;
 	}
 
-	//	Preenche o bloco de memória de "hints" com zeros.
+	// Preenche o bloco de memória de "hints" com zeros.
 	ZeroMemory(&hints, sizeof(hints));
 
 	hints.ai_family = AF_INET;
 	hints.ai_socktype = SOCK_STREAM;
 	hints.ai_protocol = IPPROTO_TCP;
 
-	//	Obtem as informações associadas ao host.
+	// Obtem as informações associadas ao host.
 	iResult = getaddrinfo(NULL, DEFAULT_PORT, &hints, &result);
 	if (iResult != 0) {
 		WSACleanup();
 		return 1;
 	}
 
-	//	Cria um soquete usando as informações definidas anteriormente.
+	// Cria um soquete usando as informações definidas anteriormente.
 	SOCKET clientSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 	if (clientSocket == INVALID_SOCKET) {
 		freeaddrinfo(result);
@@ -50,7 +50,7 @@ SOCKET socketSetup() {
 	return clientSocket;
 }
 
-//	Se conecta a um soquete de servidor e envia uma mensagem referente ao cliente conectado.
+// Se conecta a um soquete de servidor.
 int connectSocket(SOCKET clientSocket) {
 	int iResult;
 	iResult = connect(clientSocket, result->ai_addr, (int)result->ai_addrlen);
