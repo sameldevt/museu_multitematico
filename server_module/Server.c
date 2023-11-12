@@ -23,30 +23,6 @@ void logError(char* error_message) {
 	fclose(log_file);
 }
 
-
-void sendFailMessage(SOCKET clientSocket) {
-	logError("winsock error %d");
-	send(clientSocket, "failed", 7, 0);
-}
-
-void sendOk(SOCKET clientSocket) {
-	int iResult = send(clientSocket, "sucess\0", 7, 0);
-	if (iResult == SOCKET_ERROR) {
-		printf("send failed: %d\n", WSAGetLastError());
-		closesocket(clientSocket);
-		WSACleanup();
-	}
-}
-
-void sendError(SOCKET clientSocket) {
-	int iResult = send(clientSocket, "error\0", 6, 0);
-	if (iResult == SOCKET_ERROR) {
-		printf("send failed: %d\n", WSAGetLastError());
-		closesocket(clientSocket);
-		WSACleanup();
-	}
-}
-
 SOCKET serverSetup() {
 	WSADATA wsaData;
 	int iResult;

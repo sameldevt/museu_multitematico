@@ -14,13 +14,25 @@
 
 #pragma comment(lib, "pthreadVC2.lib")
 
+struct tm* timeinfo;
+struct ArtThreadStruct {
+	int num;
+	SOCKET clientSocket;
+};
+
+struct ThemeThreadStruct {
+	int num;
+	SOCKET clientSocket;
+};
+
 /* 
-   A função abaixo tem como parâmetro um identificador para o console do Windows
-   e é responsável por ajustar o tamanho da mesma bem como reposicioná-la no lado 
-   esquerdo da tela.
-*/
+ *	A função abaixo tem como parâmetro um identificador para o console do Windows
+ *  e é responsável por ajustar o tamanho da mesma bem como reposicioná-la no lado 
+ *  esquerdo da tela.
+ */
 void setWindowSize(HANDLE console) {
 	if (console != INVALID_HANDLE_VALUE) {
+
 		// Define o tamanho do buffer de tela
 		COORD bufferSize;
 		bufferSize.X = 200;
@@ -43,6 +55,7 @@ void setWindowSize(HANDLE console) {
 	HWND consoleWindow = GetConsoleWindow();
 
 	if (consoleWindow != NULL) {
+
 		// Obtém informações sobre a tela
 		RECT consoleRect;
 		GetWindowRect(consoleWindow, &consoleRect);
@@ -51,7 +64,6 @@ void setWindowSize(HANDLE console) {
 		int screenWidth = GetSystemMetrics(SM_CXSCREEN);
 		int screenHeight = GetSystemMetrics(SM_CYSCREEN);
 
-		// Calcula as coordenadas para centralizar o console
 		int consoleWidth = consoleRect.right - consoleRect.left;
 		int consoleHeight = consoleRect.bottom - consoleRect.top;
 		int consoleX = (screenWidth - consoleWidth) / 20;
@@ -65,25 +77,14 @@ void setWindowSize(HANDLE console) {
 }
 
 /*
-	A função abaixo não possui valores como parâmetro e é responsável por gerenciar
-	threads criadas pelo programa.
-*/
+ *	A função abaixo não possui valores como parâmetro e é responsável por gerenciar
+ *	threads criadas pelo programa.
+ */
 void* threadHandler() {
 	int result, thread_count = 0, art_count = 0, theme_count = 0;
 	char buffer[100], message[50], client[8], init_time[54];
 	pthread_t *client_threads[100];
 	time_t rawtime;
-	
-	struct tm* timeinfo;
-	struct ArtThreadStruct {
-		int num;
-		SOCKET clientSocket;
-	};
-
-	struct ThemeThreadStruct {
-		int num;
-		SOCKET clientSocket;
-	};
 
 	time(&rawtime);
 	timeinfo = localtime(&rawtime);
@@ -95,17 +96,25 @@ void* threadHandler() {
 	fprintf(fp, init_time);
 	fclose(fp);
 
-	// Configura e criar um Socket para o servidor.
+	// Criar um soquete para o servidor.
 	SOCKET serverSocket = serverSetup();
 
 	// Loop para aceitar conexões de clientes no servidor.
 	while (1) {
 
 		// Aguarda a conexão de um cliente.
-		listen(serverSocket, SOMAXCONN);
+		if (listen(serverSocket, SOMAXCONN) == SOCKET_ERROR) {
+			WSACleanup();
+			continue;
+		}
 
-		// Aceita uma conexão do cliente e cria um Socket para o mesmo.
+		// Aceita uma conexão do cliente e cria um soquete para o mesmo.
 		SOCKET clientSocket = accept(serverSocket, NULL, NULL);
+		if (clientSocket == INVALID_SOCKET) {
+			closesocket(clientSocket);
+			WSACleanup();
+			continue;
+		}
 
 		// Recebe uma mensagem que representa o tipo de cliente conectado.
 		result = recv(clientSocket, client, 8, 0);
