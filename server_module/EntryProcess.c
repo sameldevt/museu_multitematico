@@ -29,7 +29,6 @@ int verifyUserEntry(SOCKET clientSocket) {
 		 */
 		iResult = recv(clientSocket, name, sizeof(name), 0);
 		if (iResult == SOCKET_ERROR) {
-			sendFailMessage(clientSocket);
 			continue;
 		}
 
@@ -48,7 +47,6 @@ int verifyUserEntry(SOCKET clientSocket) {
 		 */
 		iResult = send(clientSocket, "success", 8, 0);
 		if (iResult == SOCKET_ERROR) {
-			sendFailMessage(clientSocket);
 			continue;
 		}
 		break;
@@ -80,9 +78,6 @@ int verifyStudentEntry(SOCKET clientSocket) {
 		 * @param 0					flag que modifica o comportamento da função "recv()".
 		 */
 		iResult = recv(clientSocket, info, sizeof(info), 0);
-		if (iResult == SOCKET_ERROR) {
-			sendFailMessage(clientSocket);
-		}
 
 		token = strtok(info, ",");
 		
@@ -107,9 +102,7 @@ int verifyStudentEntry(SOCKET clientSocket) {
 			 * @param 0					flag que modifica o comportamento da função "send()".
 			 */
 			iResult = send(clientSocket, "success", 8, 0);
-			if (iResult == SOCKET_ERROR) {
-				sendFailMessage(clientSocket);
-			}
+
 			break;
 		}
 		else {
@@ -123,9 +116,7 @@ int verifyStudentEntry(SOCKET clientSocket) {
 			 * @param 0					flag que modifica o comportamento da função "send()".
 			 */
 			iResult = send(clientSocket, "failed", 7, 0);
-			if (iResult == SOCKET_ERROR) {
-				sendFailMessage(clientSocket);
-			}
+
 			continue;
 		}
 	}
@@ -142,13 +133,9 @@ int verifyStudentEntry(SOCKET clientSocket) {
 	 * @param 0					flag que modifica o comportamento da função "send()".
 	 */
 	iResult = send(clientSocket, "success", 8, 0);
-	if (iResult == SOCKET_ERROR) {
-		sendFailMessage(clientSocket);
-	}
 
 	// Registra no sistema as informações do ingresso.
 	writeFile("server_resources\\ticket_info_temp.csv", "    MEIA ENTRADA  \0");
-
 	return 0;
 }
 
@@ -173,13 +160,10 @@ int verifySeniorEntry(SOCKET clientSocket) {
 		 * @param 0					flag que modifica o comportamento da função "recv()".
 		 */
 		iResult = recv(clientSocket, info, sizeof(info), 0);
-		if (iResult == SOCKET_ERROR) {
-			sendFailMessage(clientSocket);
-		}
 
 		token = strtok(info, ",");
 
-		while (token != NULL && count < 2) {
+		while (token != NULL && count < 3) {
 			tokens[count] = token;
 			count++;
 			token = strtok(NULL, ",");
@@ -199,9 +183,7 @@ int verifySeniorEntry(SOCKET clientSocket) {
 			 * @param 0					flag que modifica o comportamento da função "send()".
 			 */
 			iResult = send(clientSocket, "failed", 7, 0);
-			if (iResult == SOCKET_ERROR) {
-				sendFailMessage(clientSocket);
-			}
+
 			continue;
 		}
 		break;
@@ -219,9 +201,6 @@ int verifySeniorEntry(SOCKET clientSocket) {
 	 * @param 0					flag que modifica o comportamento da função "send()".
 	 */
 	iResult = send(clientSocket, "success", 8, 0);
-	if (iResult == SOCKET_ERROR) {
-		sendFailMessage(clientSocket);
-	}
 
 	char entry_info[100];
 
@@ -229,7 +208,6 @@ int verifySeniorEntry(SOCKET clientSocket) {
 
 	// Registra no sistema as informações do ingresso.
 	writeFile("server_resources\\ticket_info_temp.csv", entry_info);
-
 	return 0;
 }
 
@@ -254,9 +232,6 @@ int verifyJuniorEntry(SOCKET clientSocket) {
 		 * @param 0					flag que modifica o comportamento da função "recv()".
 		 */
 		iResult = recv(clientSocket, info, sizeof(info), 0);
-		if (iResult == SOCKET_ERROR) {
-			sendFailMessage(clientSocket);
-		}
 
 		token = strtok(info, ",");
 
@@ -280,9 +255,7 @@ int verifyJuniorEntry(SOCKET clientSocket) {
 			 * @param 0					flag que modifica o comportamento da função "send()".
 			 */
 			iResult = send(clientSocket, "failed", 7, 0);
-			if (iResult == SOCKET_ERROR) {
-				sendFailMessage(clientSocket);
-			}
+
 			continue;;
 		}
 		break;
@@ -300,9 +273,6 @@ int verifyJuniorEntry(SOCKET clientSocket) {
 	 * @param 0					flag que modifica o comportamento da função "send()".
 	 */
 	iResult = send(clientSocket, "success", 8, 0);
-	if (iResult == SOCKET_ERROR) {
-		sendFailMessage(clientSocket);
-	}
 
 	char entry_info[100];
 
@@ -310,7 +280,6 @@ int verifyJuniorEntry(SOCKET clientSocket) {
 
 	// Registra no sistema as informações do ingresso.
 	writeFile("server_resources\\ticket_info_temp.csv", entry_info);
-	
 	return 0;
 }
 
@@ -335,9 +304,6 @@ int verifyDisabledPersonEntry(SOCKET clientSocket) {
 		 * @param 0					flag que modifica o comportamento da função "recv()".
 		 */
 		iResult = recv(clientSocket, info, sizeof(info), 0);
-		if (iResult == SOCKET_ERROR) {
-			sendFailMessage(clientSocket);
-		}
 
 		token = strtok(info, ",");
 
@@ -362,9 +328,7 @@ int verifyDisabledPersonEntry(SOCKET clientSocket) {
 			 * @param 0					flag que modifica o comportamento da função "send()".
 			 */
 			iResult = send(clientSocket, "success", 8, 0);
-			if (iResult == SOCKET_ERROR) {
-				sendFailMessage(clientSocket);
-			}
+
 			break;
 		}
 		else {
@@ -377,9 +341,7 @@ int verifyDisabledPersonEntry(SOCKET clientSocket) {
 			 * @param 0					flag que modifica o comportamento da função "send()".
 			 */
 			iResult = send(clientSocket, "failed", 7, 0);
-			if (iResult == SOCKET_ERROR) {
-				sendFailMessage(clientSocket);
-			}
+
 			continue;
 		}
 	}
@@ -396,13 +358,9 @@ int verifyDisabledPersonEntry(SOCKET clientSocket) {
 	 * @param 0					flag que modifica o comportamento da função "send()".
 	 */
 	iResult = send(clientSocket, "success", 8, 0);
-	if (iResult == SOCKET_ERROR) {
-		sendFailMessage(clientSocket);
-	}
 
 	// Registra no sistema as informações do ingresso.
 	writeFile("server_resources\\ticket_info_temp.csv", "  MEIA ENTRADA  \0");
-
 	return 0;
 }
 
@@ -427,9 +385,6 @@ int entryHandler(SOCKET clientSocket) {
 	 * @param 0					flag que modifica o comportamento da função "send()".
 	 */
 	iResult = recv(clientSocket, entry, sizeof(entry), 0);
-	if (iResult == SOCKET_ERROR) {
-		sendFailMessage(clientSocket);
-	}
 
 	if (strcmp(entry, "entry1") == 0) {
 		if (verifyUserEntry(clientSocket) == 0) {

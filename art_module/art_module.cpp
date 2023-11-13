@@ -8,7 +8,7 @@
 int main(int argc, char* argv[]) {
 	SDL_Event event;
 	int result, width = 0, height = 0, quit = 0;
-	char request[10], art[256], art_id[10], char art_path[100];
+	char request[10], art[256], art_id[10], art_path[100];
 	SOCKET clientSocket = socketSetup();
 	SDL_Init(SDL_INIT_VIDEO);
 	
@@ -46,10 +46,7 @@ int main(int argc, char* argv[]) {
 	case 2:
 	case 4:
 	case 6:
-	case 8:
 	case 9:
-	case 10:
-	case 11:
 		// Se o ID estiver em uma das condições acima, define a largura e altura da janela.
 		width = 600;	// Largura da janela.
 		height = 720;	// Altura da janela.

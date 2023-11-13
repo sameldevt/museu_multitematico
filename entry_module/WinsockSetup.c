@@ -37,7 +37,7 @@ struct addrinfo hints;
 	hints.ai_protocol = IPPROTO_TCP;
 
 	// Obtem as informações associadas ao host.
-	iResult = getaddrinfo("192.168.0.12", DEFAULT_PORT, &hints, &result);
+	iResult = getaddrinfo(NULL, DEFAULT_PORT, &hints, &result);
 	if (iResult != 0) {
 		WSACleanup();
 		return 1;

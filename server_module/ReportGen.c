@@ -3,15 +3,23 @@
 #include <string.h>
 #include <time.h>
 
-char art_list[16][20] = {
-	"A NEGRA",
-	"ABAPORU",
-	"ESTRADA DE FERRO",
-	"OPERARIOS",
-	"SANTOS DUMONT",
-	"14 BIS",
-	"TORRE EIFFEL",
-	"DIRIGIVEL",
+char art_list[16][50] = {
+	"A Negra",
+	"Abaporu",
+	"Estrada de ferro",
+	"Operarios",
+	"Alberto Santo Dumont",
+	"14-BIS",
+	"Dirigivel Nº 1",
+	"Dirigivel Nº 6",
+	"Jogos Olimpicos na era moderna - 1896",
+	"Jogos Olimpicos de París - 2024",
+	"Jogos Olimpicos no Brasil - 2016",
+	"Olimpiadas na antiguidade",
+	"Ciberataques",
+	"Internet das Coisas",
+	"Inteligencia Artificial",
+	"Protecao de dados e privacidade",
 };
 
 typedef struct {
@@ -37,7 +45,7 @@ typedef struct {
  */
 char* calculateMostVisitedArt(ArtStats* artStats) {
 	int art_count[16];
-	char* most_visited_art = (char*)malloc(50);
+	char* most_visited_art = (char*)malloc(strlen("Jogos Olimpicos na era moderna - 1896"));
 
 	for (int i = 0; i < 16; i++) {
 		art_count[i] = 0;
@@ -74,29 +82,27 @@ char* calculateMostVisitedArt(ArtStats* artStats) {
  * @return most_visited_theme		o nome do tema mais visitada.
  */
 char* calculateMostVisitedTheme(GateStats* gateStats) {
-	char* most_visited_theme = (char*)malloc(50);
+	char* most_visited_theme = (char*)malloc(strlen("100 anos da Semana Da Arte Moderna"));
 	int i = 0, theme_1 = 0, theme_2 = 0, theme_3 = 0, theme_4 = 0;
 
 	while (1) {
 		switch (gateStats->visited_theme[i]) {
-		case 1:
+		case 0:
 			theme_1++;
 			i++;
 			continue;
-		case 2:
+		case 1:
 			theme_2++;
 			i++;
 			continue;
-		case 3:
+		case 2:
 			theme_3++;
 			i++;
 			continue;
-		case 4:
+		case 3:
 			theme_4++;
 			i++;
 			continue;
-		case NULL:
-			break;
 		}
 		break;
 	}
@@ -128,25 +134,23 @@ char* calculateMostVisitedTheme(GateStats* gateStats) {
  * @return most_purchased_ticket		o tipo de ingresso mais vendido.
  */
 char* calculateMostPurchasedTicket(PaymentStats* paymentStats) {
-	char* most_purchased_ticket = (char*)malloc(20);
+	char* most_purchased_ticket = (char*)malloc(strlen("Entrada gratuita") + 1);
 	int i = 0, fullentry = 0, halfentry = 0, freeentry = 0;
 
 	while (1) {
 		switch (paymentStats->ticket_type[i]) {
-		case 1:
+		case 0:
 			fullentry++;
 			i++;
 			continue;
-		case 2:
+		case 1:
 			halfentry++;
 			i++;
 			continue;
-		case 3:
+		case 2:
 			freeentry++;
 			i++;
 			continue;
-		case NULL:
-			break;
 		}
 		break;
 	}
@@ -176,7 +180,10 @@ PaymentStats* getPaymentStats(int date) {
 	PaymentStats* paymentStats = (PaymentStats*)malloc(sizeof(PaymentStats));
 	int* token, * tokens[3], count = 0, i = 0, ticket_type = 0, ticket_count = 0, ticket_value = 0;
 	char path[100];
-	
+
+	paymentStats->ticket_count = 0;
+	paymentStats->total_sold_value = 0;
+
 	if (date == 0) {
 		strcpy(path, "server_resources\\stats\\daily\\payment_stats.txt");
 	}
@@ -287,14 +294,20 @@ void generateDailyReport() {
 		timeinfo->tm_mday, timeinfo->tm_mon + 1, timeinfo->tm_year + 1900,
 		timeinfo->tm_hour, timeinfo->tm_min, timeinfo->tm_sec);
 
+	int ticket_count = paymentStats->ticket_count;
+	float total_sold_value = paymentStats->total_sold_value;
+	char* most_purchased_ticket = calculateMostPurchasedTicket(paymentStats);
+	char* most_visited_art = calculateMostVisitedArt(artStats);
+	char* most_visited_theme = calculateMostVisitedTheme(gateStats);
+
 	system("cls");
-	printf("RELATÓRIO DIÁRIO\n\n");
+	printf("RELATÓRIO COMPLETO\n\n");
 	printf("Data e hora do relatorio: %s\n", date);
-	printf("Quantidade de ingressos vendidos: %d\n", paymentStats->ticket_count);
-	printf("Valor faturado: R$%.2f\n", paymentStats->total_sold_value);
-	printf("Ingresso mais comprado: %s\n", calculateMostPurchasedTicket(&paymentStats));
-	printf("Arte mais visitada: %s\n", calculateMostVisitedArt(&artStats));
-	printf("Tema mais visitado: %s\n", calculateMostVisitedTheme(&gateStats));
+	printf("Quantidade de ingressos vendidos: %d\n", ticket_count);
+	printf("Valor faturado: R$%.2f\n", total_sold_value);
+	printf("Ingresso mais vendido: %s\n", most_purchased_ticket);
+	printf("Arte mais visitada: %s\n", most_visited_art);
+	printf("Tema mais visitado: %s\n", most_visited_theme);
 }
 
 // Gera o relatório completo do museu.
@@ -313,14 +326,20 @@ void generateCompleteReport() {
 		timeinfo->tm_mday, timeinfo->tm_mon + 1, timeinfo->tm_year + 1900,
 		timeinfo->tm_hour, timeinfo->tm_min, timeinfo->tm_sec);
 
+	int ticket_count = paymentStats->ticket_count;
+	float total_sold_value = paymentStats->total_sold_value;
+	char* most_purchased_ticket = calculateMostPurchasedTicket(paymentStats);
+	char* most_visited_art = calculateMostVisitedArt(artStats);
+	char* most_visited_theme = calculateMostVisitedTheme(gateStats);
+
 	system("cls");
 	printf("RELATÓRIO COMPLETO\n\n");
 	printf("Data e hora do relatorio: %s\n", date);
-	printf("Quantidade de ingressos vendidos: %d\n", paymentStats->ticket_count);
-	printf("Valor faturado: R$%.2f\n", paymentStats->total_sold_value);
-	printf("Ingresso mais vendido: %s\n", calculateMostPurchasedTicket(&paymentStats));
-	printf("Arte mais visitada: %s\n", calculateMostVisitedArt(&artStats));
-	printf("Tema mais visitado: %s\n", calculateMostVisitedTheme(&gateStats));
+	printf("Quantidade de ingressos vendidos: %d\n", ticket_count);
+	printf("Valor faturado: R$%.2f\n", total_sold_value);
+	printf("Ingresso mais vendido: %s\n", most_purchased_ticket);
+	printf("Arte mais visitada: %s\n", most_visited_art);
+	printf("Tema mais visitado: %s\n", most_visited_theme);
 }
 
 // Imprime o log do servidor.

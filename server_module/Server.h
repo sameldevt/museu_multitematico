@@ -10,12 +10,6 @@
 
 void logError(char* error_message);
 
-void sendFailMessage(SOCKET clientSocket);
-
-void sendOk(SOCKET clientSocket);
-
-void sendError(SOCKET clientSocket);
-
 SOCKET serverSetup();
 
 #endif

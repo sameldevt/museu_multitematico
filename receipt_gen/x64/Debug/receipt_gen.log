@@ -1,2 +1,8 @@
 ﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(517,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
+  Main.c
+C:\ws-vs\museu_multidisciplinar\receipt_gen\Main.c(65,8): warning C4244: 'function': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\ws-vs\museu_multidisciplinar\receipt_gen\Main.c(97,22): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\ws-vs\museu_multidisciplinar\receipt_gen\Main.c(98,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\ws-vs\museu_multidisciplinar\receipt_gen\Main.c(56,22): warning C4101: 'ticket': unreferenced local variable
+C:\ws-vs\museu_multidisciplinar\receipt_gen\Main.c(53): warning C4716: 'setWindowSize': must return a value
   receipt_gen.vcxproj -> C:\ws-vs\museu_multidisciplinar\receipt_gen\receipt_gen.exe

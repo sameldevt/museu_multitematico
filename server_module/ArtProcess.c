@@ -7,16 +7,24 @@
 #include "ArtProcess.h"
 #include "Server.h"
 
-char art_name_list[16][20] = { 
-	"A NEGRA",
-	"ABAPORU",
-	"ESTRADA DE FERRO",
-	"OPERARIOS",
-	"SANTOS DUMONT",
-	"14 BIS",
-	"TORRE EIFFEL",
-	"DIRIGIVEL",
-	};
+char art_name_list[16][50] = {
+	"A Negra",
+	"Abaporu",
+	"Estrada de ferro",
+	"Operarios",
+	"Alberto Santo Dumont",
+	"14-BIS",
+	"Dirigivel Nº 1",
+	"Dirigivel Nº 6",
+	"Jogos Olimpicos na era moderna - 1896",
+	"Jogos Olimpicos de París - 2024",
+	"Jogos Olimpicos no Brasil - 2016",
+	"Olimpiadas na antiguidade",
+	"Ciberataques",
+	"Internet das Coisas",
+	"Inteligencia Artificial",
+	"Protecao de dados e privacidade",
+};
 
 struct ArtThreadStruct {
 	int num;
@@ -74,7 +82,7 @@ void registerArtFeedback(char art_feedback[100]) {
  */
 void* artHandler(void *arg) {
 	struct ArtThreadStruct *params = (struct ArtThreadStruct*)arg;
-	char art_id[10], art_feedback[100];
+	char art_id[10], art_feedback[100], art_info[10];
 
 	sprintf(art_id, "%d", params->num);
 
@@ -101,7 +109,8 @@ void* artHandler(void *arg) {
 	// Registra a avaliação do usuário.
 	registerArtFeedback(art_feedback);
 
+	sprintf(art_info, "%d\n", params->num);
 	// Registra as informações sobre a arte avaliada no sistema.
-	appendToFile("server_resources\\stats\\daily\\art_stats.txt", art_id);
-	appendToFile("server_resources\\stats\\all\\art_stats.txt", art_id);
+	appendToFile("server_resources\\stats\\daily\\art_stats.txt", art_info);
+	appendToFile("server_resources\\stats\\all\\art_stats.txt", art_info);
 }

@@ -122,7 +122,7 @@ int main() {
 	 * Define o caminho da descrição da arte a ser carregada de acordo com o ID recebido pelo
 	 * servidor e atribui o mesmo à variável "desc_path".
 	 */
-	for (int i = 0; i < 15; i++) {
+	for (int i = 0; i < 16; i++) {
 		if (art_id == i) {
 			sprintf(desc_path, "..\\question_module\\question_resources\\desc%d.ans", i);
 			break;

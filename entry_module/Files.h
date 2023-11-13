@@ -31,7 +31,7 @@
 #define MENU_FREE_ENTRY "entry_resources\\ansi\\free_entry_menu.ans"
 
 #define MENU_JUNIOR_ENTRY "entry_resources\\ansi\\junior_entry.ans"
-#define MENU_JUNIOR_ENTRY_OK "entry_resources\\nsi\\junior_entry_ok.ans"
+#define MENU_JUNIOR_ENTRY_OK "entry_resources\\ansi\\junior_entry_ok.ans"
 #define MENU_JUNIOR_ENTRY_FAIL "entry_resources\\ansi\\junior_entry_fail.ans"
 
 #define MENU_SENIOR_ENTRY "entry_resources\\ansi\\senior_entry.ans"

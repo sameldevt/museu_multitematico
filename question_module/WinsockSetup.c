@@ -28,11 +28,13 @@ SOCKET socketSetup() {
 
 	// Preenche o bloco de memória de "hints" com zeros.
 	ZeroMemory(&hints, sizeof(hints));
+
 	hints.ai_family = AF_INET;
 	hints.ai_socktype = SOCK_STREAM;
 	hints.ai_protocol = IPPROTO_TCP;
 
-	// Obtem as informações associadas ao host.	iResult = getaddrinfo(NULL, DEFAULT_PORT, &hints, &result);
+	// Obtem as informações associadas ao host.	
+	iResult = getaddrinfo(NULL, DEFAULT_PORT, &hints, &result);
 	if (iResult != 0) {
 		printf("getaddrinfo failed: %d\n", iResult);
 		WSACleanup();

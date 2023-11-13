@@ -101,6 +101,8 @@ char* enterInput(int input_size, int cloc_x, int cloc_y) {
 
 // Ajusta o tamanho e centraliza a janela de console horizontalmente.
 void setHorizontalSize() {
+	
+	Sleep(300);
 	HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
 
 	if (console != INVALID_HANDLE_VALUE) {
@@ -122,6 +124,7 @@ void setHorizontalSize() {
 		SetConsoleWindowInfo(console, TRUE, &windowSize);
 	}
 
+	Sleep(300);
 	// Obtém um identificador para o console atual
 	HWND consoleWindow = GetConsoleWindow();
 
@@ -144,6 +147,7 @@ void setHorizontalSize() {
 		// Move o console para as coordenadas calculadas
 		MoveWindow(consoleWindow, consoleX, consoleY, consoleWidth, consoleHeight, TRUE);
 	}
+	Sleep(300);
 }
 
 // Ajusta o tamanho e centraliza a janela de console verticalmente.

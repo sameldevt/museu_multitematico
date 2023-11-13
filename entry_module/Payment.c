@@ -205,16 +205,16 @@ int verifyPixInfo(SOCKET clientSocket, int entry, int ticket_count) {
 	// Calcula o valor total a ser pago e aplica um desconto caso houver.
 	switch (entry) {
 	case 0:
-		total = (5 * ticket_count) * 1;
-		discount = 100;
+		total = 5 * ticket_count;
+		discount = 0;
 		break;
 	case 1:
-		total = (5 * ticket_count) * (50 / 100);
+		total = (5 * ticket_count) * 0.5;
 		discount = 50;
 		break;
 	case 2:
 		total = 0;
-		discount = 0;
+		discount = 100;
 		break;
 	}
 

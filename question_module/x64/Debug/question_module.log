@@ -1,10 +1,6 @@
 ﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(517,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
   Main.c
-C:\ws-vs\museu_multidisciplinar\question_module\Main.c(70,47): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-C:\ws-vs\museu_multidisciplinar\question_module\Main.c(112,46): warning C4020: 'perror': too many actual parameters
-C:\ws-vs\museu_multidisciplinar\question_module\Main.c(120,34): warning C4020: 'perror': too many actual parameters
-C:\ws-vs\museu_multidisciplinar\question_module\Main.c(141,17): warning C4047: '==': 'int' differs in levels of indirection from 'void *'
-C:\ws-vs\museu_multidisciplinar\question_module\Main.c(154,18): warning C4047: '==': 'int' differs in levels of indirection from 'void *'
-  WinsockSetup.c
-  Generating Code...
+C:\ws-vs\museu_multidisciplinar\question_module\Main.c(84,47): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\ws-vs\museu_multidisciplinar\question_module\Main.c(180,17): warning C4047: '==': 'int' differs in levels of indirection from 'void *'
+C:\ws-vs\museu_multidisciplinar\question_module\Main.c(193,18): warning C4047: '==': 'int' differs in levels of indirection from 'void *'
   question_module.vcxproj -> C:\ws-vs\museu_multidisciplinar\question_module\question_module.exe

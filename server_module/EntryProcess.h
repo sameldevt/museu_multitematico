@@ -31,8 +31,6 @@
 
 /* Função para verificar a entrada de uma pessoa sem necessidades especiais.*/
 
-void sendFailMessage(SOCKET clientSocket);
-
 int verifyUserEntry(SOCKET clientSocket);
 
 /* Função para verificar o documento do estudante */

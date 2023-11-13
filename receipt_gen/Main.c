@@ -107,7 +107,8 @@ int main() {
 	sprintf(item, "%s  %s      %s    %7.2f\0", item_code, product_code, item_desc, item_value);
 
 	char time1[50];
-	sprintf(time1, "%02d/%02d/%04d  %02d:%02d:%02d\0", timeinfo->tm_mday, timeinfo->tm_mon + 1, timeinfo->tm_year + 1900, timeinfo->tm_hour, timeinfo->tm_min, timeinfo->tm_sec);
+	sprintf(time1, "%02d/%02d/%04d  %02d:%02d:%02d\0", timeinfo->tm_mday, timeinfo->tm_mon + 1, 
+		timeinfo->tm_year + 1900, timeinfo->tm_hour, timeinfo->tm_min, timeinfo->tm_sec);
 
 	printf("										     	 \n");
 	printf("             MUSEU POPULAR BRASILEIRO\n");

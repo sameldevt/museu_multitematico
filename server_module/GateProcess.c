@@ -94,7 +94,7 @@ void* gateHandler(void* arg) {
 	int iResult;
 	char ticket_id[8], theme_num[10];
 
-	sprintf(theme_num, "%d", params->num);
+	sprintf(theme_num, "%d\n", params->num);
 
 	// Loop que mantém o fluxo de verificação ativo.
 	while (1) {

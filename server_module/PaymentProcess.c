@@ -32,7 +32,6 @@ int verifyCardPayment(SOCKET clientSocket) {
 		 */
 		iResult = recv(clientSocket, card_number, sizeof(card_number), 0);
 		if (iResult == SOCKET_ERROR) {
-			sendFailMessage(clientSocket);
 			continue;
 		}
 
@@ -77,7 +76,6 @@ int verifyCardPayment(SOCKET clientSocket) {
 		 */
 		iResult = recv(clientSocket, id, sizeof(id), 0);
 		if (iResult == SOCKET_ERROR) {
-			sendFailMessage(clientSocket);
 			continue;
 		}
 
@@ -147,13 +145,13 @@ int verifyCardPayment(SOCKET clientSocket) {
 	}
 
 	sprintf(ticket_info, ",%d,%.2f,%.2f,Cartao\0", ticket_count, amount, discount);
-	sprintf(payment_info, "%d,%d,%.2f", entry, ticket_count, amount - (amount * (discount / 100)));
+	sprintf(payment_info, "%d,%d,%.2f\n", entry, ticket_count, amount - (amount * (discount / 100)));
 
 	// Registra as informações do ingresso no sistema.
 	appendToFile("server_resources\\ticket_info_temp.csv", ticket_info);
 
-	appendToFile("server_resources\\stats\\daily\\gate_stats.txt", payment_info);
-	appendToFile("server_resources\\stats\\all\\gate_stats.txt", payment_info);
+	appendToFile("server_resources\\stats\\daily\\payment_stats.txt", payment_info);
+	appendToFile("server_resources\\stats\\all\\payment_stats.txt", payment_info);
 
 	return 0;
 }
@@ -198,7 +196,7 @@ int verifyPixPayment(SOCKET clientSocket) {
 		switch (entry) {
 		case 0:
 			total = (5 * ticket_count) * 1;
-			discount = 100;
+			discount = 0;
 			break;
 		case 1:
 			total = (5 * ticket_count) * (50 / 100);
@@ -206,7 +204,7 @@ int verifyPixPayment(SOCKET clientSocket) {
 			break;
 		case 2:
 			total = 0;
-			discount = 0;
+			discount = 100;
 			break;
 		}
 
@@ -238,17 +236,14 @@ int verifyPixPayment(SOCKET clientSocket) {
 	 * @param 0						flag que modifica o comportamento da função "send()".
 	 */
 	iResult = send(clientSocket, "success", 8, 0);
-	if (iResult == SOCKET_ERROR) {
-		sendFailMessage(clientSocket);
-	}
 
 	// Registra as informações do pagamento no sistema.
 	appendToFile("server_resources\\ticket_info_temp.csv", ticket_info);
 
-	sprintf(payment_info, "%d,%d,%.2f", entry, ticket_count, amount - (amount * (discount / 100)));
+	sprintf(payment_info, "%d,%d,%.2f\n", entry, ticket_count, amount - (amount * (discount / 100)));
 
-	appendToFile("server_resources\\stats\\daily\\gate_stats.txt", payment_info);
-	appendToFile("server_resources\\stats\\all\\gate_stats.txt", payment_info);
+	appendToFile("server_resources\\stats\\daily\\payment_stats.txt", payment_info);
+	appendToFile("server_resources\\stats\\all\\payment_stats.txt", payment_info);
 
 	return 0;
 }
