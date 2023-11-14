@@ -3,6 +3,7 @@
 #include <string.h>
 #include <math.h>
 #include <conio.h>
+#include <time.h>
 
 #include "FileProcess.h"
 #include "Server.h"
@@ -144,13 +145,24 @@ int verifyCardPayment(SOCKET clientSocket) {
 		break;
 	}
 
+	char date[10];
+	char path[100];
+
+	struct tm* timeinfo;
+	time_t rawtime;
+
+	time(&rawtime);
+	timeinfo = localtime(&rawtime);
+	sprintf(date, "%02d-%02d", timeinfo->tm_mday, timeinfo->tm_mon + 1);
+
 	sprintf(ticket_info, ",%d,%.2f,%.2f,Cartao\0", ticket_count, amount, discount);
 	sprintf(payment_info, "%d,%d,%.2f\n", entry, ticket_count, amount - (amount * (discount / 100)));
+	sprintf(path, "server_resources\\stats\\daily\\payment_stats\\%s.txt", date);
 
 	// Registra as informações do ingresso no sistema.
 	appendToFile("server_resources\\ticket_info_temp.csv", ticket_info);
 
-	appendToFile("server_resources\\stats\\daily\\payment_stats.txt", payment_info);
+	appendToFile(path, payment_info);
 	appendToFile("server_resources\\stats\\all\\payment_stats.txt", payment_info);
 
 	return 0;
@@ -238,11 +250,23 @@ int verifyPixPayment(SOCKET clientSocket) {
 	iResult = send(clientSocket, "success", 8, 0);
 
 	// Registra as informações do pagamento no sistema.
-	appendToFile("server_resources\\ticket_info_temp.csv", ticket_info);
 
+	char date[10];
+	char path[100];
+
+	struct tm* timeinfo;
+	time_t rawtime;
+
+	time(&rawtime);
+	timeinfo = localtime(&rawtime);
+	sprintf(date, "%02d-%02d", timeinfo->tm_mday, timeinfo->tm_mon + 1);
+	sprintf(path, "server_resources\\stats\\daily\\payment_stats\\%s.txt", date);
 	sprintf(payment_info, "%d,%d,%.2f\n", entry, ticket_count, amount - (amount * (discount / 100)));
 
-	appendToFile("server_resources\\stats\\daily\\payment_stats.txt", payment_info);
+	// Registra as informações do ingresso no sistema.
+	appendToFile("server_resources\\ticket_info_temp.csv", ticket_info);
+
+	appendToFile(path, payment_info);
 	appendToFile("server_resources\\stats\\all\\payment_stats.txt", payment_info);
 
 	return 0;

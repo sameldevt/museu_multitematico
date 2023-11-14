@@ -111,6 +111,15 @@ void* artHandler(void *arg) {
 
 	sprintf(art_info, "%d\n", params->num);
 	// Registra as informações sobre a arte avaliada no sistema.
-	appendToFile("server_resources\\stats\\daily\\art_stats.txt", art_info);
-	appendToFile("server_resources\\stats\\all\\art_stats.txt", art_info);
+	char date[10], path[100];
+	time_t rawtime;
+	struct tm* timeinfo;
+
+	time(&rawtime);
+	timeinfo = localtime(&rawtime);
+	sprintf(date, "%02d-%02d", timeinfo->tm_mday, timeinfo->tm_mon + 1);
+	sprintf(path, "server_resources\\stats\\daily\\art_stats\\%s.txt", date);
+
+	appendToFile(path, art_info);
+	appendToFile("server_resources\\stats\\all\\gate_stats.txt", art_info);
 }

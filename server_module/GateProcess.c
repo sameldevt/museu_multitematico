@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 #include "FileProcess.h"
 #include "Server.h"
@@ -120,8 +121,18 @@ void* gateHandler(void* arg) {
 			send(params->clientSocket, "success", 8, 0);
 
 			// Registra as informações do ingresso no sistema
-			appendToFile("server_resources\\stats\\daily\\gate_stats.txt", theme_num);
+			char date[10], path[100];
+			time_t rawtime;
+			struct tm* timeinfo;
+		
+			time(&rawtime);
+			timeinfo = localtime(&rawtime);
+			sprintf(date, "%02d-%02d", timeinfo->tm_mday, timeinfo->tm_mon + 1);
+			sprintf(path, "server_resources\\stats\\daily\\gate_stats\\%s.txt", date);
+
+			appendToFile(path, theme_num);
 			appendToFile("server_resources\\stats\\all\\gate_stats.txt", theme_num);
+
 			continue;
 		}
 		else if (verifyTicketId(ticket_id) == 1) {
@@ -134,10 +145,6 @@ void* gateHandler(void* arg) {
 			 * @param 0							flag que modifica o comportamento da função "send()".
 			 */
 			send(params->clientSocket, "expired", 8, 0);
-
-			// Registra as informações do ingresso no sistema
-			appendToFile("server_resources\\stats\\daily\\gate_stats.txt", theme_num);
-			appendToFile("server_resources\\stats\\all\\gate_stats.txt", theme_num);
 			continue;
 		}
 		else if (verifyTicketId(ticket_id) == 2) {
@@ -150,10 +157,6 @@ void* gateHandler(void* arg) {
 			 * @param 0							flag que modifica o comportamento da função "send()".
 			 */
 			send(params->clientSocket, "invalid", 8, 0);
-
-			// Registra as informações do ingresso no sistema
-			appendToFile("server_resources\\stats\\daily\\gate_stats.txt", theme_num);
-			appendToFile("server_resources\\stats\\all\\gate_stats.txt", theme_num);
 			continue;
 		}
 	}

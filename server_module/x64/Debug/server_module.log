@@ -1,13 +1,26 @@
 ﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(517,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
+  Main.c
+C:\ws-vs\museu_multitematico\server_module\Main.c(127,23): warning C4047: 'function': 'pthread_t *' differs in levels of indirection from 'pthread_t **'
+C:\ws-vs\museu_multitematico\server_module\Main.c(127,23): warning C4024: 'pthread_create': different types for formal and actual parameter 1
+C:\ws-vs\museu_multitematico\server_module\Main.c(127,77): warning C4022: 'pthread_create': pointer mismatch for actual parameter 4
+C:\ws-vs\museu_multitematico\server_module\Main.c(146,23): warning C4047: 'function': 'pthread_t *' differs in levels of indirection from 'pthread_t **'
+C:\ws-vs\museu_multitematico\server_module\Main.c(146,23): warning C4024: 'pthread_create': different types for formal and actual parameter 1
+C:\ws-vs\museu_multitematico\server_module\Main.c(164,23): warning C4047: 'function': 'pthread_t *' differs in levels of indirection from 'pthread_t **'
+C:\ws-vs\museu_multitematico\server_module\Main.c(164,23): warning C4024: 'pthread_create': different types for formal and actual parameter 1
+C:\ws-vs\museu_multitematico\server_module\Main.c(85,20): warning C4101: 'message': unreferenced local variable
+C:\ws-vs\museu_multitematico\server_module\Main.c(85,7): warning C4101: 'buffer': unreferenced local variable
+C:\ws-vs\museu_multitematico\server_module\Main.c(174,39): warning C4113: 'void *(__cdecl *)()' differs in parameter lists from 'void *(__cdecl *)(void *)'
+C:\ws-vs\museu_multitematico\server_module\Main.c(189,16): warning C4047: '==': 'int' differs in levels of indirection from 'void *'
   ReportGen.c
-C:\ws-vs\museu_multidisciplinar\server_module\ReportGen.c(59,33): warning C4047: '==': 'int' differs in levels of indirection from 'void *'
-C:\ws-vs\museu_multidisciplinar\server_module\ReportGen.c(198,9): warning C4133: '=': incompatible types - from 'char *' to 'int *'
-C:\ws-vs\museu_multidisciplinar\server_module\ReportGen.c(202,10): warning C4133: '=': incompatible types - from 'char *' to 'int *'
-C:\ws-vs\museu_multidisciplinar\server_module\ReportGen.c(205,28): warning C4133: 'function': incompatible types - from 'int *' to 'const char *'
-C:\ws-vs\museu_multidisciplinar\server_module\ReportGen.c(206,29): warning C4133: 'function': incompatible types - from 'int *' to 'const char *'
-C:\ws-vs\museu_multidisciplinar\server_module\ReportGen.c(207,29): warning C4133: 'function': incompatible types - from 'int *' to 'const char *'
-C:\ws-vs\museu_multidisciplinar\server_module\ReportGen.c(247,2): warning C4047: 'return': 'ArtStats *' differs in levels of indirection from 'ArtStats *(__cdecl *)(int)'
-C:\ws-vs\museu_multidisciplinar\server_module\ReportGen.c(260,16): warning C4101: 'tokens': unreferenced local variable
-C:\ws-vs\museu_multidisciplinar\server_module\ReportGen.c(260,7): warning C4101: 'token': unreferenced local variable
-C:\ws-vs\museu_multidisciplinar\server_module\ReportGen.c(357): warning C4716: 'printServerLog': must return a value
-  server_module.vcxproj -> C:\ws-vs\museu_multidisciplinar\server_module\server_module.exe
+C:\ws-vs\museu_multitematico\server_module\ReportGen.c(59,33): warning C4047: '==': 'int' differs in levels of indirection from 'void *'
+C:\ws-vs\museu_multitematico\server_module\ReportGen.c(202,9): warning C4133: '=': incompatible types - from 'char *' to 'int *'
+C:\ws-vs\museu_multitematico\server_module\ReportGen.c(206,10): warning C4133: '=': incompatible types - from 'char *' to 'int *'
+C:\ws-vs\museu_multitematico\server_module\ReportGen.c(209,28): warning C4133: 'function': incompatible types - from 'int *' to 'const char *'
+C:\ws-vs\museu_multitematico\server_module\ReportGen.c(210,29): warning C4133: 'function': incompatible types - from 'int *' to 'const char *'
+C:\ws-vs\museu_multitematico\server_module\ReportGen.c(211,29): warning C4133: 'function': incompatible types - from 'int *' to 'const char *'
+C:\ws-vs\museu_multitematico\server_module\ReportGen.c(259,2): warning C4047: 'return': 'ArtStats *' differs in levels of indirection from 'ArtStats *(__cdecl *)(char *)'
+C:\ws-vs\museu_multitematico\server_module\ReportGen.c(272,16): warning C4101: 'tokens': unreferenced local variable
+C:\ws-vs\museu_multitematico\server_module\ReportGen.c(272,7): warning C4101: 'token': unreferenced local variable
+  Generating Code...
+C:\ws-vs\museu_multitematico\server_module\ReportGen.c(350): warning C4716: 'printServerLog': must return a value
+  server_module.vcxproj -> C:\ws-vs\museu_multitematico\server_module\server_module.exe

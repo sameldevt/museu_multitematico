@@ -176,7 +176,7 @@ char* calculateMostPurchasedTicket(PaymentStats* paymentStats) {
  *
  * @return paymentStats		um ponteiro para a struct "PaymentStats".
  */
-PaymentStats* getPaymentStats(int date) {
+PaymentStats* getPaymentStats(char date[10]) {
 	PaymentStats* paymentStats = (PaymentStats*)malloc(sizeof(PaymentStats));
 	int* token, * tokens[3], count = 0, i = 0, ticket_type = 0, ticket_count = 0, ticket_value = 0;
 	char path[100];
@@ -184,8 +184,8 @@ PaymentStats* getPaymentStats(int date) {
 	paymentStats->ticket_count = 0;
 	paymentStats->total_sold_value = 0;
 
-	if (date == 0) {
-		strcpy(path, "server_resources\\stats\\daily\\payment_stats.txt");
+	if (strcmp(date, "00-00") != 0) {
+		sprintf(path, "server_resources\\stats\\daily\\payment_stats\\%s.txt", date);
 	}
 	else {
 		strcpy(path, "server_resources\\stats\\all\\payment_stats.txt");
@@ -193,6 +193,10 @@ PaymentStats* getPaymentStats(int date) {
 
 	FILE* fp = fopen(path, "r");
 	
+	if (fp == NULL) {
+		return NULL;
+	}
+
 	char line[30];
 	while (fgets(line, sizeof(line), fp) != NULL) {
 		token = strtok(line, ",");
@@ -213,6 +217,8 @@ PaymentStats* getPaymentStats(int date) {
 		i++;
 	}
 
+	fclose(fp);
+
 	return paymentStats;
 }
 
@@ -224,13 +230,13 @@ PaymentStats* getPaymentStats(int date) {
  *
  * @return paymentStats		um ponteiro para a struct "ArtStats".
  */
-ArtStats* getArtStats(int date) {
+ArtStats* getArtStats(char date[10]) {
 	ArtStats* artStats = (ArtStats*)malloc(sizeof(artStats));
 	int i = 0;
 	char path[100];
 	
-	if (date == 0) {
-		strcpy(path, "server_resources\\stats\\daily\\art_stats.txt");
+	if (strcmp(date, "00-00") != 0) {
+		sprintf(path, "server_resources\\stats\\daily\\art_stats\\%s.txt", date);
 	}
 	else {
 		strcpy(path, "server_resources\\stats\\all\\art_stats.txt");
@@ -238,11 +244,17 @@ ArtStats* getArtStats(int date) {
 
 	FILE* fp = fopen(path, "r");
 
+	if (fp == NULL) {
+		return NULL;
+	}
+
 	char line[30];
 	while (fgets(line, sizeof(line), fp) != NULL) {
 		artStats->visited_art[i] = atoi(line);
 		i++;
 	}
+
+	fclose(fp);
 
 	return getArtStats;
 }
@@ -255,13 +267,13 @@ ArtStats* getArtStats(int date) {
  *
  * @return paymentStats		um ponteiro para a struct "GateStats".
  */
-GateStats* getGateStats(int date) {
+GateStats* getGateStats(char date[10]) {
 	GateStats* gateStats = (GateStats*)malloc(sizeof(GateStats));
 	int* token, * tokens[3], count = 0, i = 0;
 	char path[100];
 
-	if (date == 0) {
-		strcpy(path, "server_resources\\stats\\daily\\gate_stats.txt");
+	if (strcmp(date, "00-00") != 0) {
+		sprintf(path, "server_resources\\stats\\daily\\gate_stats\\%s.txt", date);
 	}
 	else {
 		strcpy(path, "server_resources\\stats\\all\\gate_stats.txt");
@@ -269,28 +281,39 @@ GateStats* getGateStats(int date) {
 
 	FILE* fp = fopen(path, "r");
 
+	if (fp == NULL) {
+		return NULL;
+	}
+
 	char line[30];
 	while (fgets(line, sizeof(line), fp) != NULL) {
 		gateStats->visited_theme[i] = atoi(line);
 		i++;
 	}
 
+	fclose(fp);
+
 	return gateStats;
 }
 
 // Gera o relatório diário do museu.
-void generateDailyReport() {
-	char date[30];
+int generateReport(char date[10]) {
+	char now[100];
 	time_t rawtime;
 	struct tm* timeinfo;
 	time(&rawtime);
 	timeinfo = localtime(&rawtime);
 
-	PaymentStats *paymentStats = getPaymentStats(0);
-	GateStats *gateStats = getGateStats(0);
-	ArtStats *artStats = getArtStats(0);
+	PaymentStats *paymentStats = getPaymentStats(date);
+	GateStats *gateStats = getGateStats(date);
+	ArtStats *artStats = getArtStats(date);
 
-	sprintf(date, "[%02d-%02d-%04d %02d:%02d:%02d]\n",
+	if (paymentStats == NULL || gateStats == NULL || artStats == NULL) {
+		printf("\nDados nao encontrados (data invalida)\n");
+		return 1;
+	}
+
+	sprintf(now, "[%02d-%02d-%04d %02d:%02d:%02d]\n",
 		timeinfo->tm_mday, timeinfo->tm_mon + 1, timeinfo->tm_year + 1900,
 		timeinfo->tm_hour, timeinfo->tm_min, timeinfo->tm_sec);
 
@@ -301,45 +324,15 @@ void generateDailyReport() {
 	char* most_visited_theme = calculateMostVisitedTheme(gateStats);
 
 	system("cls");
-	printf("RELATÓRIO COMPLETO\n\n");
-	printf("Data e hora do relatorio: %s\n", date);
+	printf("RELATORIO\n\n");
+	printf("Data e hora do relatorio: %s\n", now);
 	printf("Quantidade de ingressos vendidos: %d\n", ticket_count);
 	printf("Valor faturado: R$%.2f\n", total_sold_value);
 	printf("Ingresso mais vendido: %s\n", most_purchased_ticket);
 	printf("Arte mais visitada: %s\n", most_visited_art);
 	printf("Tema mais visitado: %s\n", most_visited_theme);
-}
-
-// Gera o relatório completo do museu.
-void generateCompleteReport() {
-	char date[30];
-	time_t rawtime;
-	struct tm* timeinfo;
-	time(&rawtime);
-	timeinfo = localtime(&rawtime);
-
-	PaymentStats* paymentStats = getPaymentStats(1);
-	GateStats* gateStats = getGateStats(1);
-	ArtStats* artStats = getArtStats(1);
-
-	sprintf(date, "[%02d-%02d-%04d %02d:%02d:%02d]\n",
-		timeinfo->tm_mday, timeinfo->tm_mon + 1, timeinfo->tm_year + 1900,
-		timeinfo->tm_hour, timeinfo->tm_min, timeinfo->tm_sec);
-
-	int ticket_count = paymentStats->ticket_count;
-	float total_sold_value = paymentStats->total_sold_value;
-	char* most_purchased_ticket = calculateMostPurchasedTicket(paymentStats);
-	char* most_visited_art = calculateMostVisitedArt(artStats);
-	char* most_visited_theme = calculateMostVisitedTheme(gateStats);
-
-	system("cls");
-	printf("RELATÓRIO COMPLETO\n\n");
-	printf("Data e hora do relatorio: %s\n", date);
-	printf("Quantidade de ingressos vendidos: %d\n", ticket_count);
-	printf("Valor faturado: R$%.2f\n", total_sold_value);
-	printf("Ingresso mais vendido: %s\n", most_purchased_ticket);
-	printf("Arte mais visitada: %s\n", most_visited_art);
-	printf("Tema mais visitado: %s\n", most_visited_theme);
+	
+	return 0;
 }
 
 // Imprime o log do servidor.

@@ -174,6 +174,7 @@ int main() {
 	pthread_create(&server_thread, NULL, threadHandler, NULL);
 	HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
 
+	char date[10];
 	int key;
 
 	setWindowSize(console);
@@ -181,32 +182,47 @@ int main() {
 	// Loop que mantém o fluxo de menu funcionando.
 	while(1){
 		system("cls");
-		printf("SERVER MENU\n");
-		printf("1. Gerar relatorio diario do museu\n");
-		printf("2. Gerar relatorio completo do museu\n");
-		printf("3. Imprimir log do servidor\n");
+		printf("MENU DO SERVIDOR\n\n");
+		printf("1. Gerar relatorio do museu\n");
+		printf("2. Imprimir log do servidor\n");
 
 		if (_kbhit() == NULL) {
 			key = _getch();
 			switch (key) {
 			case 49:
-				generateDailyReport();
-				printf("Pressione alguma tecla para continuar...\n");
-				_getch();
 				system("cls");
-				break;
+				printf("RELATORIO\n");
+				printf("\n1. Relatorio diario\n");
+				printf("2. Relatorio completo\n");
+
+				key = _getch();
+				switch (key) {
+				case 49:
+					system("cls");
+					printf("RELATORIO\n");
+					printf("\nDigite a data (dd-mm): ");
+					scanf("%s", date);
+
+					generateReport(date);
+					printf("\nPressione alguma tecla para continuar...\n");
+					_getch();
+					system("cls");
+					continue;
+
+				case 50:
+					system("cls");
+					generateReport("00-00");
+					printf("\nPressione alguma tecla para continuar...\n");
+					_getch();
+					system("cls");
+					continue;
+				}
 			case 50:
-				generateCompleteReport();
-				printf("Pressione alguma tecla para continuar...\n");
-				_getch();
-				system("cls");
-				break;
-			case 51:
 				printServerLog();
-				printf("Pressione alguma tecla para continuar...\n");
+				printf("\nPressione alguma tecla para continuar...\n");
 				_getch();
 				system("cls");
-				break;
+				break;	
 			default:
 				continue;
 			}

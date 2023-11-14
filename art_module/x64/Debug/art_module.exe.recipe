@@ -2,7 +2,7 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>C:\ws-vs\museu_multidisciplinar\art_module\art_module.exe</FullPath>
+      <FullPath>C:\ws-vs\museu_multitematico\art_module\art_module.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />
