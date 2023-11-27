@@ -32,9 +32,6 @@ int verifyCardPayment(SOCKET clientSocket) {
 		 * @param 0							flag que modifica o comportamento da função "recv()".
 		 */
 		iResult = recv(clientSocket, card_number, sizeof(card_number), 0);
-		if (iResult == SOCKET_ERROR) {
-			continue;
-		}
 
 		card_number[iResult] = '\0';
 

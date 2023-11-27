@@ -96,6 +96,16 @@ int verifyStudentInfo(SOCKET clientSocket) {
 	loadScreen(MENU_STUDENT_ENTRY);
 
 	/*
+	 * Envia ao servidor o tipo de entrada a ser verificado.
+	 *
+	 * @param clientSocket		soquete do cliente para enviar o tipo de entrada.
+	 * @param entry				string que representa o tipo de entrada.
+	 * @param sizeof(entry)		tamanho da string.
+	 * @param 0					flag que modifica o comportamento da função "send()".
+	 */
+	iResult = send(clientSocket, entry, sizeof(entry), 0);
+
+	/*
 	 * Solicita e recebe uma entrada de usuário e atribui ao ponteiro "name".
 	 *
 	 * @param 52	tamanho máximo da string.
@@ -104,25 +114,12 @@ int verifyStudentInfo(SOCKET clientSocket) {
 	 */
 	char* name = enterInput(52, 69, 22);
 
-	while (1) {
-		/*
-		 * Envia ao servidor o tipo de entrada a ser verificado.
-		 *
-		 * @param clientSocket		soquete do cliente para enviar o tipo de entrada.
-		 * @param entry				string que representa o tipo de entrada.
-		 * @param sizeof(entry)		tamanho da string.
-		 * @param 0					flag que modifica o comportamento da função "send()".
-		 */
-		iResult = send(clientSocket, entry, sizeof(entry), 0);
-		if (iResult == SOCKET_ERROR) {
-			continue;
-		}
-
+	while (1) {	
 		loadScreen(MENU_STUDENT_ENTRY);
 
 		/*
 		 * Define a cor de fundo e do texto do console.
-		 *  
+		 *
 		 * @param GetStdHandle(STD_OUTPUT_HANDLE)	saída padrão (console).
 		 * @param 240								valor que representa as cores do console.
 		 */
@@ -144,7 +141,7 @@ int verifyStudentInfo(SOCKET clientSocket) {
 		 * @param 69	coordenada "x" onde será posicionado o cursor.
 		 * @param 26	coordenada "y" onde será posicionado o cursor.
 		 */
-		char *student_id = enterInput(52, 69, 26);
+		char* student_id = enterInput(52, 69, 26);
 
 		sprintf(info, "%s,%s", name, student_id);
 
@@ -191,6 +188,7 @@ int verifyStudentInfo(SOCKET clientSocket) {
 	return 0;
 }
 
+
 /*
  * Verifica a meia entrada da pessoa com deficiência de um cliente.
  *
@@ -206,6 +204,16 @@ int verifyDisabledPersonInfo(SOCKET clientSocket) {
 	loadScreen(MENU_DISABLED_PERSON_ENTRY);
 
 	/*
+	 * Envia ao servidor o tipo de entrada a ser verificado.
+	 *
+	 * @param clientSocket		soquete do cliente para enviar o tipo de entrada.
+	 * @param entry				string que representa o tipo de entrada.
+	 * @param sizeof(entry)		tamanho da string.
+	 * @param 0					flag que modifica o comportamento da função "send()".
+	 */
+	iResult = send(clientSocket, entry, sizeof(entry), 0);
+
+	/*
 	 * Solicita e recebe uma entrada de usuário e atribui ao ponteiro "name".
 	 *
 	 * @param 52	tamanho máximo da string.
@@ -215,19 +223,6 @@ int verifyDisabledPersonInfo(SOCKET clientSocket) {
 	char* name = enterInput(52, 69, 22);
 
 	while (1) {
-		/*
-		 * Envia ao servidor o tipo de entrada a ser verificado.
-		 *
-		 * @param clientSocket		soquete do cliente para enviar o tipo de entrada.
-		 * @param entry				string que representa o tipo de entrada.
-		 * @param sizeof(entry)		tamanho da string.
-		 * @param 0					flag que modifica o comportamento da função "send()".
-		 */
-		iResult = send(clientSocket, entry, sizeof(entry), 0);
-		if (iResult == SOCKET_ERROR) {
-			continue;
-		}
-
 		loadScreen(MENU_DISABLED_PERSON_ENTRY);
 
 		/*
@@ -316,6 +311,16 @@ int verifyJuniorInfo(SOCKET clientSocket) {
 	loadScreen(MENU_JUNIOR_ENTRY);
 
 	/*
+	 * Envia ao servidor o tipo de entrada a ser verificado.
+	 *
+	 * @param clientSocket		soquete do cliente para enviar o tipo de entrada.
+	 * @param entry				string que representa o tipo de entrada.
+	 * @param sizeof(entry)		tamanho da string.
+	 * @param 0					flag que modifica o comportamento da função "send()".
+	 */
+	iResult = send(clientSocket, entry, sizeof(entry), 0);
+
+	/*
 	 * Solicita e recebe uma entrada de usuário e atribui ao ponteiro "name".
 	 *
 	 * @param 52	tamanho máximo da string.
@@ -324,20 +329,17 @@ int verifyJuniorInfo(SOCKET clientSocket) {
 	 */
 	char* name = enterInput(52, 69, 22);
 
-	while (1) {
-		/*
-		 * Envia ao servidor o tipo de entrada a ser verificado.
-		 *
-		 * @param clientSocket		soquete do cliente para enviar o tipo de entrada.
-		 * @param entry				string que representa o tipo de entrada.
-		 * @param sizeof(entry)		tamanho da string.
-		 * @param 0					flag que modifica o comportamento da função "send()".
-		 */
-		iResult = send(clientSocket, entry, sizeof(entry), 0);
-		if (iResult == SOCKET_ERROR) {
-			continue;
-		}
+	/*
+	 * Envia ao servidor o nome do usuário a ser verificado.
+	 *
+	 * @param clientSocket		soquete do cliente para enviar o nome do usuário.
+	 * @param name				string que representa o nome do usuário.
+	 * @param sizeof(entry)		tamanho da string.
+	 * @param 0					flag que modifica o comportamento da função "send()".
+	 */
+	iResult = send(clientSocket, name, sizeof(name), 0);
 
+	while (1) {
 		loadScreen(MENU_JUNIOR_ENTRY);
 
 		/*
@@ -366,17 +368,15 @@ int verifyJuniorInfo(SOCKET clientSocket) {
 		 */
 		char* age = enterInput(52, 69, 26);
 
-		sprintf(info, "%s,%s", name, age);
-
 		/*
-		 * Envia ao servidor as informações do cliente.
+		 * Envia ao servidor a idade do usuário.
 		 *
-		 * @param clientSocket		soquete do cliente para enviar as informações do usuário.
-		 * @param info				string que representa as informações do cliente.
+		 * @param clientSocket		soquete do cliente para enviar a idade do usuário.
+		 * @param age				string que representa a idade do usuário.
 		 * @param sizeof(info)		tamanho da string.
 		 * @param 0					flag que modifica o comportamento da função "send()".
 		 */
-		iResult = send(clientSocket, info, sizeof(info), 0);
+		iResult = send(clientSocket, age, sizeof(age), 0);
 
 		/*
 		 * Recebe do servidor a resposta da verificação.
@@ -426,6 +426,16 @@ int verifySeniorInfo(SOCKET clientSocket) {
 	loadScreen(MENU_SENIOR_ENTRY);
 
 	/*
+	 * Envia ao servidor o tipo de entrada a ser verificado.
+	 *
+	 * @param clientSocket		soquete do cliente para enviar o tipo de entrada.
+	 * @param entry				string que representa o tipo de entrada.
+	 * @param sizeof(entry)		tamanho da string.
+	 * @param 0					flag que modifica o comportamento da função "send()".
+	 */
+	iResult = send(clientSocket, entry, sizeof(entry), 0);
+
+	/*
 	 * Solicita e recebe uma entrada de usuário e atribui ao ponteiro "name".
 	 *
 	 * @param 52	tamanho máximo da string.
@@ -434,20 +444,17 @@ int verifySeniorInfo(SOCKET clientSocket) {
 	 */
 	char* name = enterInput(52, 69, 22);
 
-	while (1) {
-		/*
-		 * Envia ao servidor o tipo de entrada a ser verificado.
-		 *
-		 * @param clientSocket		soquete do cliente para enviar o tipo de entrada.
-		 * @param entry				string que representa o tipo de entrada.
-		 * @param sizeof(entry)		tamanho da string.
-		 * @param 0					flag que modifica o comportamento da função "send()".
-		 */
-		iResult = send(clientSocket, entry, sizeof(entry), 0);
-		if (iResult == SOCKET_ERROR) {
-			continue;
-		}
+	/*
+	 * Envia ao servidor o nome do usuário a ser verificado.
+	 *
+	 * @param clientSocket		soquete do cliente para enviar o nome do usuário.
+	 * @param name				string que representa o nome do usuário.
+	 * @param sizeof(entry)		tamanho da string.
+	 * @param 0					flag que modifica o comportamento da função "send()".
+	 */
+	iResult = send(clientSocket, name, sizeof(name), 0);
 
+	while (1) {
 		loadScreen(MENU_SENIOR_ENTRY);
 
 		/*
@@ -476,17 +483,15 @@ int verifySeniorInfo(SOCKET clientSocket) {
 		 */
 		char* age = enterInput(52, 69, 26);
 
-		sprintf(info, "%s,%s", name, age);
-
 		/*
-		 * Envia ao servidor as informações do cliente.
+		 * Envia ao servidor a idade do usuário.
 		 *
-		 * @param clientSocket		soquete do cliente para enviar as informações do usuário.
-		 * @param info				string que representa as informações do cliente.
+		 * @param clientSocket		soquete do cliente para enviar a idade do usuário.
+		 * @param age				string que representa a idade do usuário.
 		 * @param sizeof(info)		tamanho da string.
 		 * @param 0					flag que modifica o comportamento da função "send()".
 		 */
-		iResult = send(clientSocket, info, sizeof(info), 0);
+		iResult = send(clientSocket, age, sizeof(age), 0);
 
 		/*
 		 * Recebe do servidor a resposta da verificação.

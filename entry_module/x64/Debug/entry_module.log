@@ -1,10 +1,12 @@
 ﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(517,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
   Entry.c
 C:\ws-vs\museu_multitematico\entry_module\Entry.c(56,38): warning C4267: 'function': conversion from 'size_t' to 'int', possible loss of data
-C:\ws-vs\museu_multitematico\entry_module\Entry.c(535,18): warning C4047: '==': 'int' differs in levels of indirection from 'void *'
-C:\ws-vs\museu_multitematico\entry_module\Entry.c(545,20): warning C4047: '==': 'int' differs in levels of indirection from 'void *'
-C:\ws-vs\museu_multitematico\entry_module\Entry.c(563,20): warning C4047: '==': 'int' differs in levels of indirection from 'void *'
-C:\ws-vs\museu_multitematico\entry_module\Entry.c(532,11): warning C4101: 'iResult': unreferenced local variable
+C:\ws-vs\museu_multitematico\entry_module\Entry.c(308,20): warning C4101: 'info': unreferenced local variable
+C:\ws-vs\museu_multitematico\entry_module\Entry.c(423,7): warning C4101: 'info': unreferenced local variable
+C:\ws-vs\museu_multitematico\entry_module\Entry.c(540,18): warning C4047: '==': 'int' differs in levels of indirection from 'void *'
+C:\ws-vs\museu_multitematico\entry_module\Entry.c(550,20): warning C4047: '==': 'int' differs in levels of indirection from 'void *'
+C:\ws-vs\museu_multitematico\entry_module\Entry.c(568,20): warning C4047: '==': 'int' differs in levels of indirection from 'void *'
+C:\ws-vs\museu_multitematico\entry_module\Entry.c(537,11): warning C4101: 'iResult': unreferenced local variable
   Files.c
   Main.c
 C:\ws-vs\museu_multitematico\entry_module\Main.c(34,17): warning C4047: '==': 'int' differs in levels of indirection from 'void *'
@@ -13,11 +15,11 @@ C:\ws-vs\museu_multitematico\entry_module\Main.c(52,19): warning C4047: '==': 'i
   Misc.c
   Payment.c
 C:\ws-vs\museu_multitematico\entry_module\Payment.c(73,45): warning C4267: 'function': conversion from 'size_t' to 'int', possible loss of data
-C:\ws-vs\museu_multitematico\entry_module\Payment.c(208,13): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\ws-vs\museu_multitematico\entry_module\Payment.c(212,30): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\ws-vs\museu_multitematico\entry_module\Payment.c(262,18): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\ws-vs\museu_multitematico\entry_module\Payment.c(318,18): warning C4047: '==': 'int' differs in levels of indirection from 'void *'
+C:\ws-vs\museu_multitematico\entry_module\Payment.c(209,13): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\ws-vs\museu_multitematico\entry_module\Payment.c(213,30): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\ws-vs\museu_multitematico\entry_module\Payment.c(263,18): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\ws-vs\museu_multitematico\entry_module\Payment.c(319,18): warning C4047: '==': 'int' differs in levels of indirection from 'void *'
   WinsockSetup.c
   Generating Code...
-C:\ws-vs\museu_multitematico\entry_module\Entry.c(584): warning C4715: 'selectEntry': not all control paths return a value
+C:\ws-vs\museu_multitematico\entry_module\Entry.c(589): warning C4715: 'selectEntry': not all control paths return a value
   entry_module.vcxproj -> C:\ws-vs\museu_multitematico\entry_module\entry_module.exe

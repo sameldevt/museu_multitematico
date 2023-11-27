@@ -99,6 +99,7 @@ int verifyCardInfo(SOCKET clientSocket, int entry, int ticket_count) {
 
 	// Loop para verificação do número de verificação do cartão.
 	while (1) {
+		loadScreen(MENU_CARD_PAYMENT);
 		/*
 		 * Define a cor de fundo e do texto do console.
 		 *

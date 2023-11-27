@@ -92,7 +92,7 @@ void setWindowSize(HANDLE console) {
 }
 
 int main() {
-	int result, key, pos = 0, rate = 0;
+	int result, key, pos = 0, rate = 0, theme_id;
 	char art_feedback[100], recv_id[10], desc_path[100];
 	SOCKET clientSocket = socketSetup();
 

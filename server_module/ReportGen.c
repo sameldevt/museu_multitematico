@@ -10,16 +10,23 @@ char art_list[16][50] = {
 	"Operarios",
 	"Alberto Santo Dumont",
 	"14-BIS",
-	"Dirigivel Nº 1",
-	"Dirigivel Nº 6",
+	"Dirigivel No 1",
+	"Dirigivel No 6",
 	"Jogos Olimpicos na era moderna - 1896",
-	"Jogos Olimpicos de París - 2024",
+	"Jogos Olimpicos de Paris - 2024",
 	"Jogos Olimpicos no Brasil - 2016",
 	"Olimpiadas na antiguidade",
 	"Ciberataques",
 	"Internet das Coisas",
 	"Inteligencia Artificial",
 	"Protecao de dados e privacidade",
+};
+
+char theme_list[4][50] = {
+	"100 anos da Semana Da Arte Moderna",
+	"150 anos de Santos Dumont",
+	"Jogos Olímpicos Paris 2024",
+	"Seguranca Cibernetica",
 };
 
 typedef struct {
@@ -29,11 +36,8 @@ typedef struct {
 } PaymentStats;
 
 typedef struct {
-	int visited_theme[10000];
-} GateStats;
-
-typedef struct {
-	int visited_art[10000];
+	int visited_art[16];
+	int visited_theme[4];
 } ArtStats;
 
 /*
@@ -44,27 +48,11 @@ typedef struct {
  * @return most_visited_art		o nome da arte mais visitada.
  */
 char* calculateMostVisitedArt(ArtStats* artStats) {
-	int art_count[16];
-	char* most_visited_art = (char*)malloc(strlen("Jogos Olimpicos na era moderna - 1896"));
-
-	for (int i = 0; i < 16; i++) {
-		art_count[i] = 0;
-	}
-
-	for (int i = 0; i < 16; i++) {
-		for (int j = 0; j < 10000; j++) {
-			if (artStats->visited_art[j] == i) {
-				art_count[i]++;
-			}
-			if (artStats->visited_art[j] == NULL) {
-				break;
-			}
-		}
-	}
-
 	int higher = 0;
-	for(int i = 0; i < 16; i++){
-		if (art_count[i] > higher) {
+	char* most_visited_art = (char*)malloc(strlen("Jogos Olimpicos na era moderna - 1896") + 1);
+
+	for (int i = 0; i < 16; i++) {
+		if (artStats->visited_art[i] > artStats->visited_art[higher]) {
 			higher = i;
 		}
 	}
@@ -81,48 +69,18 @@ char* calculateMostVisitedArt(ArtStats* artStats) {
  *
  * @return most_visited_theme		o nome do tema mais visitada.
  */
-char* calculateMostVisitedTheme(GateStats* gateStats) {
-	char* most_visited_theme = (char*)malloc(strlen("100 anos da Semana Da Arte Moderna"));
-	int i = 0, theme_1 = 0, theme_2 = 0, theme_3 = 0, theme_4 = 0;
+char* calculateMostVisitedTheme(ArtStats* artStats) {
+	char* most_visited_theme = (char*)malloc(strlen("100 anos da Semana Da Arte Moderna") + 1);
+	int higher = 0;
 
-	while (1) {
-		switch (gateStats->visited_theme[i]) {
-		case 0:
-			theme_1++;
-			i++;
-			continue;
-		case 1:
-			theme_2++;
-			i++;
-			continue;
-		case 2:
-			theme_3++;
-			i++;
-			continue;
-		case 3:
-			theme_4++;
-			i++;
-			continue;
+	for (int i = 0; i < 4; i++) {
+		if (artStats->visited_theme[i] > artStats->visited_theme[higher]) {
+			higher = i;
 		}
-		break;
 	}
 
-	if (theme_1 > theme_2 && theme_1 > theme_3 && theme_1 > theme_4) {
-		strcpy(most_visited_theme, "150 anos de Santos Dumont\0");
+	strcpy(most_visited_theme, theme_list[higher]);
 
-	}
-	else if (theme_2 > theme_1 && theme_2 > theme_3 && theme_2 > theme_4) {
-		strcpy(most_visited_theme, "100 anos da Semana Da Arte Moderna\0");
-
-	}
-	else if (theme_3 > theme_1 && theme_3 > theme_2 && theme_3 > theme_4) {
-		strcpy(most_visited_theme, "Jogos Olímpicos Paris 2024\0");
-
-	}
-	else if (theme_4 > theme_1 && theme_4 > theme_2 && theme_4 > theme_3) {
-		strcpy(most_visited_theme, "Segurança Cibernética\0");
-	}
-	
 	return most_visited_theme;
 }
 
@@ -156,13 +114,16 @@ char* calculateMostPurchasedTicket(PaymentStats* paymentStats) {
 	}
 
 	if (fullentry > halfentry && fullentry > freeentry) {
-		strcpy(most_purchased_ticket, "Entrada cheia\0");
+		sprintf(most_purchased_ticket, "Entrada cheia\0");
 	}
 	else if (halfentry > fullentry && halfentry > freeentry) {
-		strcpy(most_purchased_ticket, "Meia entrada\0");
+		sprintf(most_purchased_ticket, "Meia entrada\0");
 	}
 	else if (freeentry > fullentry && fullentry > halfentry) {
-		strcpy(most_purchased_ticket, "Entrada gratuita\0");
+		sprintf(most_purchased_ticket, "Entrada gratuita\0");
+	}
+	else {
+		sprintf(most_purchased_ticket, "Entrada cheia\0");
 	}
 
 	return most_purchased_ticket;
@@ -188,7 +149,7 @@ PaymentStats* getPaymentStats(char date[10]) {
 		sprintf(path, "server_resources\\stats\\daily\\payment_stats\\%s.txt", date);
 	}
 	else {
-		strcpy(path, "server_resources\\stats\\all\\payment_stats.txt");
+		sprintf(path, "server_resources\\stats\\all\\payment_stats.txt");
 	}
 
 	FILE* fp = fopen(path, "r");
@@ -232,14 +193,21 @@ PaymentStats* getPaymentStats(char date[10]) {
  */
 ArtStats* getArtStats(char date[10]) {
 	ArtStats* artStats = (ArtStats*)malloc(sizeof(artStats));
-	int i = 0;
+	int* token, * tokens[3], count = 0, i = 0;
 	char path[100];
-	
+
+	for (int i = 0; i < 16; i++) {
+		artStats->visited_art[i] = 0;
+	}
+	for (int i = 0; i < 4; i++) {
+		artStats->visited_theme[i] = 0;
+	}
+
 	if (strcmp(date, "00-00") != 0) {
 		sprintf(path, "server_resources\\stats\\daily\\art_stats\\%s.txt", date);
 	}
 	else {
-		strcpy(path, "server_resources\\stats\\all\\art_stats.txt");
+		sprintf(path, "server_resources\\stats\\all\\art_stats.txt");
 	}
 
 	FILE* fp = fopen(path, "r");
@@ -248,52 +216,25 @@ ArtStats* getArtStats(char date[10]) {
 		return NULL;
 	}
 
-	char line[30];
+	char line[20];
 	while (fgets(line, sizeof(line), fp) != NULL) {
-		artStats->visited_art[i] = atoi(line);
-		i++;
+		token = strtok(line, ",");
+		while (token != NULL && count < 2) {
+			tokens[count] = token;
+			count++;
+			token = strtok(NULL, ",");
+		}
+
+		int visited_art = atoi(tokens[0]);
+		int visited_theme = atoi(tokens[1]);
+		
+		artStats->visited_art[visited_art]++;
+		artStats->visited_theme[visited_theme]++;
 	}
 
 	fclose(fp);
 
-	return getArtStats;
-}
-
-/*
- * Carrega as informações do terminal de catraca na memória.
- *
- * @param date				inteiro que representa a data de onde os dados serão carregados, sendo 0
- *							os dados do dia e 1 todos os dados.
- *
- * @return paymentStats		um ponteiro para a struct "GateStats".
- */
-GateStats* getGateStats(char date[10]) {
-	GateStats* gateStats = (GateStats*)malloc(sizeof(GateStats));
-	int* token, * tokens[3], count = 0, i = 0;
-	char path[100];
-
-	if (strcmp(date, "00-00") != 0) {
-		sprintf(path, "server_resources\\stats\\daily\\gate_stats\\%s.txt", date);
-	}
-	else {
-		strcpy(path, "server_resources\\stats\\all\\gate_stats.txt");
-	}
-
-	FILE* fp = fopen(path, "r");
-
-	if (fp == NULL) {
-		return NULL;
-	}
-
-	char line[30];
-	while (fgets(line, sizeof(line), fp) != NULL) {
-		gateStats->visited_theme[i] = atoi(line);
-		i++;
-	}
-
-	fclose(fp);
-
-	return gateStats;
+	return artStats;
 }
 
 // Gera o relatório diário do museu.
@@ -305,10 +246,12 @@ int generateReport(char date[10]) {
 	timeinfo = localtime(&rawtime);
 
 	PaymentStats *paymentStats = getPaymentStats(date);
-	GateStats *gateStats = getGateStats(date);
+	if (paymentStats == NULL) {
+		printf("\nDados nao encontrados (data invalida)\n");
+		return 1;
+	}
 	ArtStats *artStats = getArtStats(date);
-
-	if (paymentStats == NULL || gateStats == NULL || artStats == NULL) {
+	if (artStats == NULL) {
 		printf("\nDados nao encontrados (data invalida)\n");
 		return 1;
 	}
@@ -321,7 +264,7 @@ int generateReport(char date[10]) {
 	float total_sold_value = paymentStats->total_sold_value;
 	char* most_purchased_ticket = calculateMostPurchasedTicket(paymentStats);
 	char* most_visited_art = calculateMostVisitedArt(artStats);
-	char* most_visited_theme = calculateMostVisitedTheme(gateStats);
+	char* most_visited_theme = calculateMostVisitedTheme(artStats);
 
 	system("cls");
 	printf("RELATORIO\n\n");

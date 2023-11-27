@@ -80,7 +80,7 @@ int verifyStudentEntry(SOCKET clientSocket) {
 		iResult = recv(clientSocket, info, sizeof(info), 0);
 
 		token = strtok(info, ",");
-		
+
 		while (token != NULL && count < 2) {
 			tokens[count] = token;
 			count++;
@@ -150,30 +150,24 @@ int verifySeniorEntry(SOCKET clientSocket) {
 	int iResult, count = 0;
 	char info[120], * token, * tokens[2], name[100];
 
+	iResult = recv(clientSocket, name, sizeof(name), 0);
+
 	while (1) {
+		char* age = (char*)malloc(100);
 		/*
 		 * Recebe do cliente as informações do usuário.
 		 *
-		 * @param clientSocket		soquete do cliente para receber as informações do usuário.
-		 * @param info				string que representa as informações do cliente.
-		 * @param sizeof(info)		tamanho da string.
+		 * @param clientSocket		soquete do cliente para receber a idade do usuário.
+		 * @param age				string que representa a idade do usuário.
+		 * @param sizeof(age)		tamanho da string.
 		 * @param 0					flag que modifica o comportamento da função "recv()".
 		 */
-		iResult = recv(clientSocket, info, sizeof(info), 0);
+		iResult = recv(clientSocket, age, sizeof(age), 0);
 
-		token = strtok(info, ",");
-
-		while (token != NULL && count < 3) {
-			tokens[count] = token;
-			count++;
-			token = strtok(NULL, ",");
-		}
-
-		strcpy(name, tokens[0]);
-		int age = atoi(tokens[1]);
+		int int_age = atoi(age);
 
 		// Verifica se a idade do usuário é válida.
-		if (age < 60) {
+		if (int_age < 60) {
 			/*
 			 * Envia ao cliente o resultado da verificação.
 			 *
@@ -183,6 +177,7 @@ int verifySeniorEntry(SOCKET clientSocket) {
 			 * @param 0					flag que modifica o comportamento da função "send()".
 			 */
 			iResult = send(clientSocket, "failed", 7, 0);
+			free(age);
 
 			continue;
 		}
@@ -191,7 +186,7 @@ int verifySeniorEntry(SOCKET clientSocket) {
 
 	// Registra o usuário no sistema.
 	registerUser(name);
-	
+
 	/*
 	 * Envia ao cliente o resultado da verificação.
 	 *
@@ -201,7 +196,7 @@ int verifySeniorEntry(SOCKET clientSocket) {
 	 * @param 0					flag que modifica o comportamento da função "send()".
 	 */
 	iResult = send(clientSocket, "success", 8, 0);
-
+	
 	char entry_info[100];
 
 	sprintf(entry_info, "  ENTRADA GRATUITA,%d,%.2f,%.2f,      \0", 0, 0.0, 100.0);
@@ -222,30 +217,24 @@ int verifyJuniorEntry(SOCKET clientSocket) {
 	int iResult, count = 0;
 	char info[120], * token, * tokens[2], name[100];
 
+	iResult = recv(clientSocket, name, sizeof(name), 0);
+
 	while (1) {
+		char* age = (char*)malloc(100);
 		/*
 		 * Recebe do cliente as informações do usuário.
 		 *
-		 * @param clientSocket		soquete do cliente para receber as informações do usuário.
-		 * @param info				string que representa as informações do cliente.
-		 * @param sizeof(info)		tamanho da string.
+		 * @param clientSocket		soquete do cliente para receber a idade do usuário.
+		 * @param age				string que representa a idade do usuário.
+		 * @param sizeof(age)		tamanho da string.
 		 * @param 0					flag que modifica o comportamento da função "recv()".
 		 */
-		iResult = recv(clientSocket, info, sizeof(info), 0);
+		iResult = recv(clientSocket, age, sizeof(age), 0);
 
-		token = strtok(info, ",");
-
-		while (token != NULL && count < 2) {
-			tokens[count] = token;
-			count++;
-			token = strtok(NULL, ",");
-		}
-
-		strcpy(name, tokens[0]);
-		int age = atoi(tokens[1]);
+		int int_age = atoi(age);
 
 		// Verifica se a idade do usuário é válida.
-		if (age > 5) {
+		if (int_age > 5) {
 			/*
 			 * Envia ao cliente o resultado da verificação.
 			 *
@@ -255,8 +244,9 @@ int verifyJuniorEntry(SOCKET clientSocket) {
 			 * @param 0					flag que modifica o comportamento da função "send()".
 			 */
 			iResult = send(clientSocket, "failed", 7, 0);
+			free(age);
 
-			continue;;
+			continue;
 		}
 		break;
 	}

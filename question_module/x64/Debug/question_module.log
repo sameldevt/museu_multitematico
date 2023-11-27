@@ -3,6 +3,7 @@
 C:\ws-vs\museu_multitematico\question_module\Main.c(84,47): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
 C:\ws-vs\museu_multitematico\question_module\Main.c(180,17): warning C4047: '==': 'int' differs in levels of indirection from 'void *'
 C:\ws-vs\museu_multitematico\question_module\Main.c(193,18): warning C4047: '==': 'int' differs in levels of indirection from 'void *'
+C:\ws-vs\museu_multitematico\question_module\Main.c(95,38): warning C4101: 'theme_id': unreferenced local variable
   WinsockSetup.c
   Generating Code...
   question_module.vcxproj -> C:\ws-vs\museu_multitematico\question_module\question_module.exe

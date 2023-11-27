@@ -109,17 +109,29 @@ void* artHandler(void *arg) {
 	// Registra a avaliação do usuário.
 	registerArtFeedback(art_feedback);
 
-	sprintf(art_info, "%d\n", params->num);
-	// Registra as informações sobre a arte avaliada no sistema.
 	char date[10], path[100];
 	time_t rawtime;
 	struct tm* timeinfo;
+	int theme_id = 0;
+
+	if (params->num > 3 && params->num < 8) {
+		theme_id = 1;
+	}
+	else if (params->num > 7 && params->num < 12) {
+		theme_id = 2;
+	}
+	else if (params->num > 11 && params->num < 15) {
+		theme_id = 3;
+	}
+	
+	sprintf(art_info, "%d,%d\n", params->num, theme_id);
 
 	time(&rawtime);
 	timeinfo = localtime(&rawtime);
 	sprintf(date, "%02d-%02d", timeinfo->tm_mday, timeinfo->tm_mon + 1);
 	sprintf(path, "server_resources\\stats\\daily\\art_stats\\%s.txt", date);
 
+	// Registra as informações sobre a arte avaliada no sistema.
 	appendToFile(path, art_info);
-	appendToFile("server_resources\\stats\\all\\gate_stats.txt", art_info);
+	appendToFile("server_resources\\stats\\all\\art_stats.txt", art_info);
 }

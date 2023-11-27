@@ -31,6 +31,8 @@ void loadScreen(char screen_path[100]) {
 void setScreenSize() {
 	HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
 
+	Sleep(100);
+
 	if (console != INVALID_HANDLE_VALUE) {
 
 		// Define o tamanho do buffer de tela
@@ -52,6 +54,8 @@ void setScreenSize() {
 
 	// Obtém um identificador para o console atual
 	HWND consoleWindow = GetConsoleWindow();
+
+	Sleep(100);
 
 	if (consoleWindow != NULL) {
 

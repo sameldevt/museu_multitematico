@@ -9,6 +9,8 @@
 int setWindowSize() {
 	HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
 
+	Sleep(100);
+
 	if (console != INVALID_HANDLE_VALUE) {
 
 		// Define o tamanho do buffer de tela
@@ -30,6 +32,8 @@ int setWindowSize() {
 
 	// Obtém um identificador para o console atual
 	HWND consoleWindow = GetConsoleWindow();
+
+	Sleep(100);
 
 	if (consoleWindow != NULL) {
 
