@@ -13,11 +13,7 @@ Esse projeto foi criado para um trabalho do segundo semestre do curso superior d
 
 * Cadastro de usuários:
 
-<video width="640" height="360" controls>
-  <source src="cadastro.mp4" type="video/mp4">
-  Seu navegador não suporta o elemento de vídeo.
-</video>
-
+![](pagamento.gif)
 
 Uma organização sem fins lucrativos pretende criar um museu 
 multitemático. Os temas exibidos serão voltados a questões que estiveram em 
