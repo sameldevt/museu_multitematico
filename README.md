@@ -1,17 +1,23 @@
 <h1>
-     <img align="right" width="160px" src="https://logodownload.org/wp-content/uploads/2021/06/unip-logo.png"></a>
-    <span>Projeto integrado multidiscliplinar 2</span>
+     <img align="right" width="400px" src="logo.png"></a>
+    <span>Projeto de gerenciamento de museu multitemático</span>
 </h1>
 
-### Projeto - gerenciamento de museu multitemático
+Esse projeto foi criado para um trabalho do segundo semestre do curso superior de Análise e Desenvolvimento de Sistemas e tem como objetivo o gerenciamento de toda a parte de tecnologia de um museu com temas variados. Os programas são separadas em diferentes terminais espalhados pelo museu, sendo eles:
 
-Tendo por base os conteúdos das disciplinas de Fundamentos de Redes de
-Dados E Comunicação, Engenharia de Software I, Linguagem e Técnicas de
-Programação, Matemática para Computação, Ética e Legislação Profissional e
-Metodologia Científica, o grupo do PIM deverá apresentar um Projeto que
-gerencia um museu multitemático.
+1) Terminal de entrada - registrar usuários e comprar bilhetes;
+2) Terminal de catraca - validação de bilhetes;
+3) Terminal de questionário - descrição de artes e questionário.
 
-## Contextualização do caso
+### Funcionalidades
+
+* Cadastro de usuários:
+
+<video width="640" height="360" controls>
+  <source src="cadastro.mp4" type="video/mp4">
+  Seu navegador não suporta o elemento de vídeo.
+</video>
+
 
 Uma organização sem fins lucrativos pretende criar um museu 
 multitemático. Os temas exibidos serão voltados a questões que estiveram em 
